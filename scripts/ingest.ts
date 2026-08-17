@@ -1,5 +1,8 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { execFile } from "node:child_process";
+import { mkdir, mkdtemp, readFile, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import path from "node:path";
+import { promisify } from "node:util";
 
 import { config } from "dotenv";
 import { eq } from "drizzle-orm";
@@ -12,8 +15,11 @@ import { geographies, metrics, observations, sources } from "../drizzle/schema";
 config({ path: ".env.local" });
 config();
 
+const execFileAsync = promisify(execFile);
 const WDI_BASE = "https://api.worldbank.org/v2/country/WLD/indicator";
 const SNAPSHOT_PATH = path.join(process.cwd(), "data", "world-series.json");
+const UCDP_BRD_ZIP =
+  "https://ucdp.uu.se/downloads/brd/ucdp-brd-conf-261-csv.zip";
 
 type WdiMeta = {
   page: number;
@@ -83,6 +89,87 @@ async function fetchWdiWorldSeries(code: string) {
 
   points.sort((a, b) => a.year - b.year);
   return points;
+}
+
+function splitCsvLine(line: string) {
+  const cells: string[] = [];
+  let current = "";
+  let inQuotes = false;
+
+  for (let i = 0; i < line.length; i += 1) {
+    const char = line[i];
+    if (char === '"') {
+      if (inQuotes && line[i + 1] === '"') {
+        current += '"';
+        i += 1;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (char === "," && !inQuotes) {
+      cells.push(current);
+      current = "";
+    } else {
+      current += char;
+    }
+  }
+
+  cells.push(current);
+  return cells;
+}
+
+function parseCsv(text: string) {
+  const lines = text.replace(/^\uFEFF/, "").split(/\r?\n/).filter(Boolean);
+  const headers = splitCsvLine(lines[0] ?? "");
+  return lines.slice(1).map((line) => {
+    const cells = splitCsvLine(line);
+    const row: Record<string, string> = {};
+    headers.forEach((header, index) => {
+      row[header] = cells[index] ?? "";
+    });
+    return row;
+  });
+}
+
+async function fetchUcdpWorldBattleDeaths() {
+  const response = await fetch(UCDP_BRD_ZIP);
+
+  if (!response.ok) {
+    throw new Error(`UCDP BRD HTTP ${response.status}`);
+  }
+
+  const dir = await mkdtemp(path.join(tmpdir(), "ucdp-brd-"));
+  const zipPath = path.join(dir, "brd.zip");
+  await writeFile(zipPath, Buffer.from(await response.arrayBuffer()));
+  await execFileAsync("unzip", ["-o", zipPath, "-d", dir]);
+
+  const { stdout } = await execFileAsync("unzip", ["-Z", "-1", zipPath]);
+  const csvName = stdout
+    .split("\n")
+    .map((line) => line.trim())
+    .find((line) => line.toLowerCase().endsWith(".csv"));
+
+  if (!csvName) {
+    throw new Error("UCDP BRD zip did not contain a CSV file.");
+  }
+
+  const csvText = await readFile(path.join(dir, csvName), "utf8");
+  const rows = parseCsv(csvText);
+  const totals = new Map<number, number>();
+
+  for (const row of rows) {
+    const year = Number(row.year);
+    const value = Number(row.bd_best);
+
+    if (!Number.isInteger(year) || Number.isNaN(value)) {
+      continue;
+    }
+
+    totals.set(year, (totals.get(year) ?? 0) + value);
+  }
+
+  return [...totals.entries()]
+    .sort((a, b) => a[0] - b[0])
+    .map(([year, value]) => ({ year, value }));
 }
 
 async function persistToDatabase(snapshot: WorldSeriesSnapshot) {
@@ -193,13 +280,16 @@ async function main() {
   const shipped: ShippedMetric[] = [];
   const dropped: DroppedMetric[] = [];
 
-  console.log("Fetching official World (WLD) series from World Bank WDI.\n");
+  console.log("Fetching official World series.\n");
 
   for (const candidate of METRIC_CANDIDATES) {
     process.stdout.write(`${candidate.worldBankCode} ${candidate.slug} ... `);
 
     try {
-      const points = await fetchWdiWorldSeries(candidate.worldBankCode);
+      const points =
+        candidate.slug === "battle-deaths"
+          ? await fetchUcdpWorldBattleDeaths()
+          : await fetchWdiWorldSeries(candidate.worldBankCode);
 
       if (points.length === 0) {
         dropped.push({

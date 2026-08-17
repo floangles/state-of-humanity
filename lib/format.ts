@@ -67,3 +67,20 @@ export function yearBounds(metrics: ShippedMetric[]) {
     maxYear: Math.max(...years),
   };
 }
+
+export function defaultYear(metrics: ShippedMetric[]) {
+  const { minYear, maxYear } = yearBounds(metrics);
+  const needed = Math.max(1, Math.ceil(metrics.length / 2));
+
+  for (let year = maxYear; year >= minYear; year -= 1) {
+    const coverage = metrics.filter((metric) =>
+      metric.observations.some((point) => point.year === year),
+    ).length;
+
+    if (coverage >= needed) {
+      return year;
+    }
+  }
+
+  return maxYear;
+}

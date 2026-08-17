@@ -26,6 +26,35 @@ export function MetricTile({ metric, year }: MetricTileProps) {
   const trend = trendForYear(metric, year);
   const color = CATEGORY_COLORS[metric.category];
 
+  // #region agent log
+  if (value === null) {
+    fetch("http://127.0.0.1:7584/ingest/9917541d-c336-47ab-9751-0064368ba7ca", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Debug-Session-Id": "1ec86f",
+      },
+      body: JSON.stringify({
+        sessionId: "1ec86f",
+        runId: "pre-fix",
+        hypothesisId: "B",
+        location: "metric-tile.tsx:MetricTile",
+        message: "tile showing no official estimate",
+        data: {
+          slug: metric.slug,
+          selectedYear: year,
+          lastYear:
+            metric.observations[metric.observations.length - 1]?.year ?? null,
+          lastYearType:
+            typeof metric.observations[metric.observations.length - 1]?.year,
+          selectedYearType: typeof year,
+        },
+        timestamp: Date.now(),
+      }),
+    }).catch(() => {});
+  }
+  // #endregion
+
   return (
     <Link
       href={`/metrics/${metric.slug}`}

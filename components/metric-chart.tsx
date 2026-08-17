@@ -65,7 +65,7 @@ export function MetricChart({
               tick={{ fill: "oklch(0.74 0.025 75)", fontSize: 12 }}
               tickLine={false}
               axisLine={false}
-              width={64}
+              width={72}
               tickFormatter={(value: number) =>
                 formatMetricValue(value, metric.decimals, locale)
               }

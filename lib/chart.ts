@@ -4,6 +4,7 @@ export const CATEGORY_COLORS: Record<ShippedMetric["category"], string> = {
   survival: "#e08a4b",
   knowledge: "#d4b36a",
   living: "#8fa87a",
+  conflict: "#9a6b6b",
   planet: "#c46a4a",
 };
 

@@ -14,6 +14,7 @@ export const categoryEnum = pgEnum("metric_category", [
   "survival",
   "knowledge",
   "living",
+  "conflict",
   "planet",
 ]);
 

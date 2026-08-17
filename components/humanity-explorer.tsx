@@ -7,6 +7,7 @@ import { useLocale } from "@/components/locale-provider";
 import { MetricTile } from "@/components/metric-tile";
 import { YearScrubber } from "@/components/year-scrubber";
 import {
+  defaultYear,
   firstObservation,
   formatMetricValue,
   trendForYear,
@@ -21,6 +22,7 @@ const CHAPTER_ORDER: Category[] = [
   "survival",
   "knowledge",
   "living",
+  "conflict",
   "planet",
 ];
 
@@ -31,7 +33,77 @@ type HumanityExplorerProps = {
 export function HumanityExplorer({ snapshot }: HumanityExplorerProps) {
   const { locale, t } = useLocale();
   const { minYear, maxYear } = yearBounds(snapshot.metrics);
-  const [year, setYear] = useState(maxYear);
+  const initialYear = defaultYear(snapshot.metrics);
+  const [year, setYear] = useState(initialYear);
+
+  // #region agent log
+  fetch("http://127.0.0.1:7584/ingest/9917541d-c336-47ab-9751-0064368ba7ca", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Debug-Session-Id": "1ec86f",
+    },
+    body: JSON.stringify({
+      sessionId: "1ec86f",
+      runId: "pre-fix",
+      hypothesisId: "A",
+      location: "humanity-explorer.tsx:HumanityExplorer",
+      message: "year bounds and selected year",
+      data: {
+        minYear,
+        maxYear,
+        selectedYear: year,
+        metricYearSpans: snapshot.metrics.map((metric) => ({
+          slug: metric.slug,
+          first: metric.observations[0]?.year ?? null,
+          last:
+            metric.observations[metric.observations.length - 1]?.year ?? null,
+          hasSelected: metric.observations.some((point) => point.year === year),
+          yearTypes: [
+            ...new Set(metric.observations.slice(0, 3).map((point) => typeof point.year)),
+          ],
+        })),
+        missingAtSelected: snapshot.metrics
+          .filter(
+            (metric) =>
+              !metric.observations.some((point) => point.year === year),
+          )
+          .map((metric) => metric.slug),
+      },
+      timestamp: Date.now(),
+    }),
+  }).catch(() => {});
+  // #endregion
+
+  // #region agent log
+  fetch("http://127.0.0.1:7584/ingest/9917541d-c336-47ab-9751-0064368ba7ca", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Debug-Session-Id": "1ec86f",
+    },
+    body: JSON.stringify({
+      sessionId: "1ec86f",
+      runId: "post-fix",
+      hypothesisId: "A",
+      location: "humanity-explorer.tsx:HumanityExplorer:post-fix",
+      message: "default year after coverage fix",
+      data: {
+        minYear,
+        maxYear,
+        initialYear,
+        selectedYear: year,
+        missingAtSelected: snapshot.metrics
+          .filter(
+            (metric) =>
+              !metric.observations.some((point) => point.year === year),
+          )
+          .map((metric) => metric.slug),
+      },
+      timestamp: Date.now(),
+    }),
+  }).catch(() => {});
+  // #endregion
 
   const chapters = CHAPTER_ORDER.map((category) => ({
     category,

@@ -1,3 +1,5 @@
+import type { Category } from "@/lib/metrics-catalog";
+
 export const LOCALES = ["en", "fr"] as const;
 
 export type Locale = (typeof LOCALES)[number];
@@ -39,11 +41,8 @@ type Dictionary = {
   droppedCandidates: (count: number) => string;
   allShipped: (count: number) => string;
   seeSources: string;
-  chapters: Record<
-    "survival" | "knowledge" | "living" | "planet",
-    { title: string; eyebrow: string }
-  >;
-  categoryLabels: Record<"survival" | "knowledge" | "living" | "planet", string>;
+  chapters: Record<Category, { title: string; eyebrow: string }>;
+  categoryLabels: Record<Category, string>;
   metricPage: {
     back: string;
     firstPoint: (year: number) => string;
@@ -117,12 +116,14 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
         title: "Living standards",
         eyebrow: "Poverty, energy, water, food",
       },
+      conflict: { title: "Conflict", eyebrow: "Battle deaths" },
       planet: { title: "Planet", eyebrow: "Emissions" },
     },
     categoryLabels: {
       survival: "Survival",
       knowledge: "Knowledge",
       living: "Living standards",
+      conflict: "Conflict",
       planet: "Planet",
     },
     metricPage: {
@@ -200,12 +201,14 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
         title: "Niveau de vie",
         eyebrow: "Pauvreté, énergie, eau, alimentation",
       },
+      conflict: { title: "Conflit", eyebrow: "Décès au combat" },
       planet: { title: "Planète", eyebrow: "Émissions" },
     },
     categoryLabels: {
       survival: "Survie",
       knowledge: "Savoir",
       living: "Niveau de vie",
+      conflict: "Conflit",
       planet: "Planète",
     },
     metricPage: {
@@ -349,6 +352,15 @@ export const METRIC_FR: Record<string, MetricCopy> = {
       "Émissions annuelles de dioxyde de carbone hors utilisation des terres, changement d'affectation des terres et foresterie, divisées par la population, en tonnes d'équivalent CO₂ par personne.",
     methodologyNote:
       "Série gaz à effet de serre actuelle des WDI (EN.GHG.CO2.PC.CE.AR5), issue de la base EDGAR du JRC de la Commission européenne et de l'AIE. L'ancien code WDI EN.ATM.CO2E.PC n'est pas utilisé. Seules les années avec une valeur mondiale publiée sont affichées.",
+  },
+  "battle-deaths": {
+    name: "Décès au combat",
+    shortLabel: "Décès au combat",
+    unit: "décès",
+    description:
+      "Nombre de personnes tuées dans des incidents liés aux combats lors de conflits armés impliquant un État : combattants et civils morts directement du fait des combats.",
+    methodologyNote:
+      "Jeu de données Uppsala Conflict Data Program (UCDP) Battle-Related Deaths, fichier conflit-année (bd_best). La Banque mondiale redistribue cette série sous le code VC.BTL.DETH mais laisse la ligne World vide ; le total mondial est donc pris chez UCDP : somme des estimations « best » de chaque conflit-année (une ligne par conflit et par année, pas de moyenne de pays). Morts directes au combat uniquement — pas la famine, les maladies ou les autres effets indirects de la guerre. Ce n'est pas une part de l'ensemble des décès.",
   },
 };
 

@@ -1,4 +1,10 @@
-export const CATEGORIES = ["survival", "knowledge", "living", "planet"] as const;
+export const CATEGORIES = [
+  "survival",
+  "knowledge",
+  "living",
+  "conflict",
+  "planet",
+] as const;
 
 export type Category = (typeof CATEGORIES)[number];
 
@@ -30,6 +36,7 @@ export const CHAPTERS: Record<
   survival: { title: "Survival", eyebrow: "Health and longevity" },
   knowledge: { title: "Knowledge", eyebrow: "Literacy" },
   living: { title: "Living standards", eyebrow: "Poverty, energy, water, food" },
+  conflict: { title: "Conflict", eyebrow: "Battle deaths" },
   planet: { title: "Planet", eyebrow: "Emissions" },
 };
 
@@ -274,6 +281,28 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
       organization: "European Commission JRC and IEA",
       homepageUrl: "https://edgar.jrc.ec.europa.eu/",
       dataUrl: "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5",
+      license: "CC BY 4.0",
+    },
+  },
+  {
+    slug: "battle-deaths",
+    name: "Battle-related deaths",
+    shortLabel: "Battle deaths",
+    unit: "deaths",
+    description:
+      "The number of people killed in battle-related incidents in state-based armed conflicts: combatants and civilians who die as a direct result of fighting.",
+    methodologyNote:
+      "Uppsala Conflict Data Program (UCDP) Battle-Related Deaths Dataset, conflict-year file (bd_best). World Bank WDI redistributes this series as VC.BTL.DETH but leaves the World row empty, so the World total is taken from UCDP: the sum of each conflict-year best estimate (one row per conflict and year, no country averaging). Direct battle deaths only — not famine, disease, or other indirect war deaths. Not a share of all deaths.",
+    category: "conflict",
+    higherIsBetter: false,
+    worldBankCode: "VC.BTL.DETH",
+    decimals: 0,
+    sortOrder: 105,
+    source: {
+      name: "UCDP Battle-Related Deaths Dataset",
+      organization: "Uppsala Conflict Data Program, Uppsala University",
+      homepageUrl: "https://ucdp.uu.se/",
+      dataUrl: "https://ucdp.uu.se/downloads/brd/ucdp-brd-conf-261-csv.zip",
       license: "CC BY 4.0",
     },
   },
