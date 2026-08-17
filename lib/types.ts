@@ -13,7 +13,7 @@ export type ShippedMetric = {
   description: string;
   methodologyNote: string;
   category: Category;
-  higherIsBetter: boolean;
+  higherIsBetter: boolean | null;
   worldBankCode: string;
   decimals: number;
   sortOrder: number;

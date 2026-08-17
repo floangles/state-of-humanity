@@ -16,7 +16,7 @@ export type MetricCandidate = {
   description: string;
   methodologyNote: string;
   category: Category;
-  higherIsBetter: boolean;
+  higherIsBetter: boolean | null;
   worldBankCode: string;
   decimals: number;
   sortOrder: number;
@@ -54,7 +54,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     methodologyNote:
       "World aggregate published by the World Bank World Development Indicators (SP.POP.TOTL), sourced from the United Nations Population Division World Population Prospects and national statistical offices. Midyear estimates. This is the published World total, not a sum computed from country rows. Only years with a published World value are shown.",
     category: "survival",
-    higherIsBetter: true,
+    higherIsBetter: null,
     worldBankCode: "SP.POP.TOTL",
     decimals: 0,
     sortOrder: 5,

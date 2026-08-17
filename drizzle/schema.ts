@@ -51,7 +51,7 @@ export const metrics = pgTable(
     description: text("description").notNull(),
     methodologyNote: text("methodology_note").notNull(),
     category: categoryEnum("category").notNull(),
-    higherIsBetter: boolean("higher_is_better").notNull(),
+    higherIsBetter: boolean("higher_is_better"),
     worldBankCode: text("world_bank_code").notNull(),
     decimals: integer("decimals").notNull(),
     sortOrder: integer("sort_order").notNull(),

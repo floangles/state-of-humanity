@@ -14,7 +14,7 @@
       "description": "The midyear de facto world population: all residents, regardless of legal status or citizenship.",
       "methodologyNote": "World aggregate published by the World Bank World Development Indicators (SP.POP.TOTL), sourced from the United Nations Population Division World Population Prospects and national statistical offices. Midyear estimates. This is the published World total, not a sum computed from country rows. Only years with a published World value are shown.",
       "category": "survival",
-      "higherIsBetter": true,
+      "higherIsBetter": null,
       "worldBankCode": "SP.POP.TOTL",
       "decimals": 0,
       "sortOrder": 5,

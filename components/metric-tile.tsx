@@ -10,6 +10,7 @@ import {
   displayForYear,
   formatMetricValue,
   trendForYear,
+  trendLabel,
 } from "@/lib/format";
 import { translatedMetric } from "@/lib/i18n";
 import type { ShippedMetric } from "@/lib/types";
@@ -68,12 +69,7 @@ export function MetricTile({ metric, year }: MetricTileProps) {
                   : "bg-muted text-muted-foreground"
             }`}
           >
-            {trend.direction === "better"
-              ? t.better
-              : trend.direction === "worse"
-                ? t.worse
-                : t.unchanged}{" "}
-            {t.vs} {trend.fromYear}
+            {trendLabel(trend.direction, t)} {t.vs} {trend.fromYear}
           </span>
         ) : null}
       </div>

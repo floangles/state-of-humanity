@@ -12,6 +12,7 @@ import {
   firstObservation,
   formatMetricValue,
   trendForYear,
+  trendLabel,
   yearBounds,
 } from "@/lib/format";
 import { translatedMetric } from "@/lib/i18n";
@@ -152,13 +153,7 @@ function ThenNowRow({
               : "text-muted-foreground"
         }`}
       >
-        {trend
-          ? trend.direction === "better"
-            ? t.better
-            : trend.direction === "worse"
-              ? t.worse
-              : t.unchanged
-          : "—"}
+        {trend ? trendLabel(trend.direction, t) : "—"}
       </p>
     </div>
   );

@@ -70,8 +70,30 @@ export function trendForYear(metric: ShippedMetric, year: number) {
   }
 
   const delta = current - first.value;
+
+  if (delta === 0) {
+    return {
+      fromYear: first.year,
+      fromValue: first.value,
+      toYear: year,
+      toValue: current,
+      delta,
+      direction: "unchanged" as const,
+    };
+  }
+
+  if (metric.higherIsBetter === null) {
+    return {
+      fromYear: first.year,
+      fromValue: first.value,
+      toYear: year,
+      toValue: current,
+      delta,
+      direction: "neutral" as const,
+    };
+  }
+
   const improved = metric.higherIsBetter ? delta > 0 : delta < 0;
-  const worsened = metric.higherIsBetter ? delta < 0 : delta > 0;
 
   return {
     fromYear: first.year,
@@ -79,8 +101,22 @@ export function trendForYear(metric: ShippedMetric, year: number) {
     toYear: year,
     toValue: current,
     delta,
-    direction: improved ? "better" : worsened ? "worse" : "unchanged",
-  } as const;
+    direction: improved ? ("better" as const) : ("worse" as const),
+  };
+}
+
+export type Trend = NonNullable<ReturnType<typeof trendForYear>>;
+
+export function trendLabel(
+  direction: Trend["direction"],
+  labels: {
+    better: string;
+    worse: string;
+    unchanged: string;
+    neutral: string;
+  },
+) {
+  return labels[direction];
 }
 
 export function yearBounds(metrics: ShippedMetric[]) {

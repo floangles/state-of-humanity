@@ -35,6 +35,7 @@ type Dictionary = {
   better: string;
   worse: string;
   unchanged: string;
+  neutral: string;
   vs: string;
   openSeries: string;
   lastIngested: (date: string) => string;
@@ -103,6 +104,7 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
     better: "Better",
     worse: "Worse",
     unchanged: "Unchanged",
+    neutral: "Neutral",
     vs: "vs",
     openSeries: "Open series →",
     lastIngested: (date) => `Last ingested ${date}.`,
@@ -190,6 +192,7 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
     better: "Mieux",
     worse: "Moins bien",
     unchanged: "Stable",
+    neutral: "Neutre",
     vs: "vs",
     openSeries: "Voir la série →",
     lastIngested: (date) => `Dernier ingest ${date}.`,

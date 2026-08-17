@@ -5,7 +5,7 @@ import { asc, eq } from "drizzle-orm";
 
 import { getDb } from "@/lib/db";
 import { metrics, observations, sources } from "@/drizzle/schema";
-import type { Category } from "@/lib/metrics-catalog";
+import { getCandidate, type Category } from "@/lib/metrics-catalog";
 import type { ShippedMetric, WorldSeriesSnapshot } from "@/lib/types";
 
 const SNAPSHOT_PATH = path.join(process.cwd(), "data", "world-series.json");
@@ -52,6 +52,8 @@ async function loadFromDatabase(): Promise<WorldSeriesSnapshot | null> {
       continue;
     }
 
+    const candidate = getCandidate(row.metric.slug);
+
     shipped.push({
       slug: row.metric.slug,
       name: row.metric.name,
@@ -60,7 +62,7 @@ async function loadFromDatabase(): Promise<WorldSeriesSnapshot | null> {
       description: row.metric.description,
       methodologyNote: row.metric.methodologyNote,
       category: row.metric.category as Category,
-      higherIsBetter: row.metric.higherIsBetter,
+      higherIsBetter: candidate ? candidate.higherIsBetter : row.metric.higherIsBetter,
       worldBankCode: row.metric.worldBankCode,
       decimals: row.metric.decimals,
       sortOrder: row.metric.sortOrder,
