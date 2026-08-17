@@ -6,7 +6,17 @@ export function formatMetricValue(
   decimals: number,
   locale: Locale = "en",
 ) {
-  return new Intl.NumberFormat(localeNumberFormat(locale), {
+  const localeTag = localeNumberFormat(locale);
+
+  if (Math.abs(value) >= 1_000_000_000) {
+    return new Intl.NumberFormat(localeTag, {
+      notation: "compact",
+      compactDisplay: "short",
+      maximumFractionDigits: 2,
+    }).format(value);
+  }
+
+  return new Intl.NumberFormat(localeTag, {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   }).format(value);

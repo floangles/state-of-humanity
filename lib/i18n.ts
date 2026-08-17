@@ -114,7 +114,7 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
       `All ${count} candidates had a published World series.`,
     seeSources: "See sources",
     chapters: {
-      survival: { title: "Survival", eyebrow: "Health and longevity" },
+      survival: { title: "Survival", eyebrow: "Population, health and longevity" },
       knowledge: { title: "Knowledge", eyebrow: "Literacy" },
       living: {
         title: "Living standards",
@@ -201,7 +201,7 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
       `Les ${count} candidats avaient une série mondiale publiée.`,
     seeSources: "Voir les sources",
     chapters: {
-      survival: { title: "Survie", eyebrow: "Santé et longévité" },
+      survival: { title: "Survie", eyebrow: "Population, santé et longévité" },
       knowledge: { title: "Savoir", eyebrow: "Alphabétisation" },
       living: {
         title: "Niveau de vie",
@@ -261,6 +261,15 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
 };
 
 export const METRIC_FR: Record<string, MetricCopy> = {
+  "world-population": {
+    name: "Population mondiale",
+    shortLabel: "Population",
+    unit: "personnes",
+    description:
+      "Population mondiale de facto au milieu de l'année : tous les résidents, quel que soit leur statut juridique ou leur citoyenneté.",
+    methodologyNote:
+      "Agrégat mondial publié par les Indicateurs du développement dans le monde de la Banque mondiale (SP.POP.TOTL), à partir des World Population Prospects de la Division de la population de l'ONU et des instituts nationaux de statistique. Estimations au milieu de l'année. C'est le total mondial publié, pas une somme calculée à partir des pays. Seules les années avec une valeur mondiale publiée sont affichées.",
+  },
   "life-expectancy": {
     name: "Espérance de vie à la naissance",
     shortLabel: "Espérance de vie",
