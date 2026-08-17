@@ -31,6 +31,7 @@ type Dictionary = {
   thenVs: (year: number) => string;
   thenVsHint: string;
   noEstimate: string;
+  lastReading: (year: number) => string;
   better: string;
   worse: string;
   unchanged: string;
@@ -95,8 +96,9 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
       "A tile shows a number only if the producer published a World value for that year.",
     thenVs: (year) => `Then vs ${year}`,
     thenVsHint:
-      "First official World point compared with the selected year. No estimate means the producer did not publish a World value.",
+      "First official World point compared with the selected year. If that year has no World value, the last published reading is shown.",
     noEstimate: "No official estimate",
+    lastReading: (year) => `Last reading ${year}`,
     better: "Better",
     worse: "Worse",
     unchanged: "Unchanged",
@@ -117,7 +119,7 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
         eyebrow: "Poverty, energy, water, food",
       },
       conflict: { title: "Conflict", eyebrow: "Battle deaths" },
-      planet: { title: "Planet", eyebrow: "Emissions" },
+      planet: { title: "Planet", eyebrow: "Climate, energy, land" },
     },
     categoryLabels: {
       survival: "Survival",
@@ -179,8 +181,9 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
       "Une tuile n'affiche un chiffre que si le producteur a publié une valeur mondiale pour cette année.",
     thenVs: (year) => `Alors vs ${year}`,
     thenVsHint:
-      "Premier point mondial officiel comparé à l'année sélectionnée. Pas d'estimation signifie que le producteur n'a pas publié de valeur mondiale.",
+      "Premier point mondial officiel comparé à l'année sélectionnée. S'il n'y a pas de valeur mondiale pour cette année, le dernier relevé publié est affiché.",
     noEstimate: "Pas d'estimation officielle",
+    lastReading: (year) => `Dernier relevé ${year}`,
     better: "Mieux",
     worse: "Moins bien",
     unchanged: "Stable",
@@ -202,7 +205,7 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
         eyebrow: "Pauvreté, énergie, eau, alimentation",
       },
       conflict: { title: "Conflit", eyebrow: "Décès au combat" },
-      planet: { title: "Planète", eyebrow: "Émissions" },
+      planet: { title: "Planète", eyebrow: "Climat, énergie, terres" },
     },
     categoryLabels: {
       survival: "Survie",
@@ -352,6 +355,33 @@ export const METRIC_FR: Record<string, MetricCopy> = {
       "Émissions annuelles de dioxyde de carbone hors utilisation des terres, changement d'affectation des terres et foresterie, divisées par la population, en tonnes d'équivalent CO₂ par personne.",
     methodologyNote:
       "Série gaz à effet de serre actuelle des WDI (EN.GHG.CO2.PC.CE.AR5), issue de la base EDGAR du JRC de la Commission européenne et de l'AIE. L'ancien code WDI EN.ATM.CO2E.PC n'est pas utilisé. Seules les années avec une valeur mondiale publiée sont affichées.",
+  },
+  methane: {
+    name: "Émissions de méthane (total)",
+    shortLabel: "Méthane",
+    unit: "Mt éq. CO₂, hors UTCATF",
+    description:
+      "Émissions annuelles de méthane (CH₄) issues de l'agriculture, de l'énergie, des déchets et de l'industrie, hors utilisation des terres, changement d'affectation des terres et foresterie, en millions de tonnes d'équivalent CO₂.",
+    methodologyNote:
+      "Série gaz à effet de serre actuelle des WDI (EN.GHG.CH4.MT.CE.AR5), issue de la base EDGAR du JRC de la Commission européenne et de l'AIE. Les valeurs utilisent les potentiels de réchauffement global sur 100 ans du GIEC AR5. C'est le total mondial publié, pas une somme calculée à partir des pays. Seules les années avec une valeur mondiale publiée sont affichées.",
+  },
+  "forest-area": {
+    name: "Surface forestière",
+    shortLabel: "Forêts",
+    unit: "% de la superficie terrestre",
+    description:
+      "Part des terres couvertes de peuplements d'arbres naturels ou plantés d'au moins 5 mètres de haut, productifs ou non. Exclut les arbres des systèmes de production agricole (vergers, agroforesterie) et ceux des parcs et jardins urbains.",
+    methodologyNote:
+      "Série officielle FAO pour l'ODD 15.1.1, issue de l'Évaluation des ressources forestières mondiales, via les WDI (AG.LND.FRST.ZS). C'est la part mondiale publiée, pas une moyenne calculée à partir des pays. Seules les années avec une valeur mondiale publiée sont affichées.",
+  },
+  "renewable-energy": {
+    name: "Consommation d'énergies renouvelables",
+    shortLabel: "Énergies renouvelables",
+    unit: "% de la consommation finale d'énergie",
+    description:
+      "Part de la consommation finale d'énergie provenant de sources renouvelables, y compris l'hydroélectricité, l'éolien, le solaire, la géothermie et la biomasse.",
+    methodologyNote:
+      "Série officielle ODD 7.2.1 de Tracking SDG7 (AIE, IRENA, UNSD, Banque mondiale, OMS), via les WDI (EG.FEC.RNEW.ZS). Inclut la biomasse traditionnelle aussi bien que les renouvelables modernes, donc la part mondiale peut baisser pendant que l'éolien et le solaire progressent. Seules les années avec une valeur mondiale publiée sont affichées.",
   },
   "battle-deaths": {
     name: "Décès au combat",

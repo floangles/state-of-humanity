@@ -35,6 +35,22 @@ export function lastObservation(metric: ShippedMetric) {
   return metric.observations[metric.observations.length - 1] ?? null;
 }
 
+export function displayForYear(metric: ShippedMetric, year: number) {
+  const exact = valueAtYear(metric, year);
+
+  if (exact !== null) {
+    return { value: exact, year, kind: "exact" as const };
+  }
+
+  const last = lastObservation(metric);
+
+  if (last && last.year < year) {
+    return { value: last.value, year: last.year, kind: "last" as const };
+  }
+
+  return null;
+}
+
 export function trendForYear(metric: ShippedMetric, year: number) {
   const first = firstObservation(metric);
   const current = valueAtYear(metric, year);

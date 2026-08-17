@@ -1,6 +1,6 @@
 # State of Humanity
 
-Official world series on survival, literacy, living standards, and emissions. The app shows a number only when a producer published a **World** aggregate for that year. It never averages country rows and never interpolates gaps.
+Official world series on survival, literacy, living standards, conflict, and the planet. The app shows a number only when a producer published a **World** aggregate for that year. It never averages country rows and never interpolates gaps.
 
 ## Stack
 
@@ -16,7 +16,7 @@ npm run ingest
 npm run dev
 ```
 
-`npm run ingest` fetches `country=WLD` only for the 10 candidate WDI codes. A candidate with zero non-null World points is dropped. The snapshot is written to `data/world-series.json`. The UI reads that file when `DATABASE_URL` is unset.
+`npm run ingest` fetches `country=WLD` only for the candidate WDI codes. A candidate with zero non-null World points is dropped. The snapshot is written to `data/world-series.json`. The UI reads that file when `DATABASE_URL` is unset.
 
 Copy [`.env.example`](.env.example) to `.env.local` if you want Postgres.
 

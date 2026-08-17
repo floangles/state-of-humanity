@@ -4,7 +4,7 @@
     "name": "World",
     "type": "world"
   },
-  "fetchedAt": "2026-08-17T13:10:15.997Z",
+  "fetchedAt": "2026-08-17T13:36:13.195Z",
   "metrics": [
     {
       "slug": "life-expectancy",
@@ -24,7 +24,7 @@
         "homepageUrl": "https://population.un.org/wpp/",
         "dataUrl": "https://data.worldbank.org/indicator/SP.DYN.LE00.IN",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:10:15.997Z"
+        "fetchedAt": "2026-08-17T13:36:13.195Z"
       },
       "observations": [
         {
@@ -307,7 +307,7 @@
         "homepageUrl": "https://childmortality.org",
         "dataUrl": "https://data.worldbank.org/indicator/SP.DYN.IMRT.IN",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:10:15.997Z"
+        "fetchedAt": "2026-08-17T13:36:13.195Z"
       },
       "observations": [
         {
@@ -470,7 +470,7 @@
         "homepageUrl": "https://www.who.int/data/gho/data/themes/maternal-and-reproductive-health/maternal-mortality-ratio",
         "dataUrl": "https://data.worldbank.org/indicator/SH.STA.MMRT",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:10:15.997Z"
+        "fetchedAt": "2026-08-17T13:36:13.195Z"
       },
       "observations": [
         {
@@ -649,7 +649,7 @@
         "homepageUrl": "https://immunizationdata.who.int/",
         "dataUrl": "https://data.worldbank.org/indicator/SH.IMM.MEAS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:10:15.997Z"
+        "fetchedAt": "2026-08-17T13:36:13.195Z"
       },
       "observations": [
         {
@@ -852,7 +852,7 @@
         "homepageUrl": "https://databrowser.uis.unesco.org/",
         "dataUrl": "https://data.worldbank.org/indicator/SE.ADT.LITR.ZS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:10:15.997Z"
+        "fetchedAt": "2026-08-17T13:36:13.195Z"
       },
       "observations": [
         {
@@ -1075,7 +1075,7 @@
         "homepageUrl": "https://pip.worldbank.org/",
         "dataUrl": "https://data.worldbank.org/indicator/SI.POV.DDAY",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:10:15.997Z"
+        "fetchedAt": "2026-08-17T13:36:13.195Z"
       },
       "observations": [
         {
@@ -1270,7 +1270,7 @@
         "homepageUrl": "https://trackingsdg7.esmap.org/",
         "dataUrl": "https://data.worldbank.org/indicator/EG.ELC.ACCS.ZS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:10:15.997Z"
+        "fetchedAt": "2026-08-17T13:36:13.195Z"
       },
       "observations": [
         {
@@ -1401,7 +1401,7 @@
         "homepageUrl": "https://washdata.org/",
         "dataUrl": "https://data.worldbank.org/indicator/SH.H2O.BASW.ZS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:10:15.997Z"
+        "fetchedAt": "2026-08-17T13:36:13.195Z"
       },
       "observations": [
         {
@@ -1524,7 +1524,7 @@
         "homepageUrl": "https://www.fao.org/faostat/",
         "dataUrl": "https://data.worldbank.org/indicator/SN.ITK.DEFC.ZS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:10:15.997Z"
+        "fetchedAt": "2026-08-17T13:36:13.195Z"
       },
       "observations": [
         {
@@ -1639,7 +1639,7 @@
         "homepageUrl": "https://edgar.jrc.ec.europa.eu/",
         "dataUrl": "https://data.worldbank.org/indicator/EN.GHG.CO2.MT.CE.AR5",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:10:15.997Z"
+        "fetchedAt": "2026-08-17T13:36:13.195Z"
       },
       "observations": [
         {
@@ -1882,7 +1882,7 @@
         "homepageUrl": "https://edgar.jrc.ec.europa.eu/",
         "dataUrl": "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:10:15.997Z"
+        "fetchedAt": "2026-08-17T13:36:13.195Z"
       },
       "observations": [
         {
@@ -2108,6 +2108,547 @@
       ]
     },
     {
+      "slug": "methane",
+      "name": "Methane emissions (total)",
+      "shortLabel": "Methane",
+      "unit": "Mt CO₂e, excluding LULUCF",
+      "description": "Annual methane (CH₄) emissions from agriculture, energy, waste, and industry, excluding land use, land-use change, and forestry, in million tonnes of CO₂ equivalent.",
+      "methodologyNote": "Current World Bank WDI greenhouse-gas series (EN.GHG.CH4.MT.CE.AR5), sourced from the European Commission JRC EDGAR Community GHG Database and the IEA. Values use IPCC AR5 100-year global warming potentials. This is the published World total, not a sum computed from country rows. Only years with a published World value are shown.",
+      "category": "planet",
+      "higherIsBetter": false,
+      "worldBankCode": "EN.GHG.CH4.MT.CE.AR5",
+      "decimals": 0,
+      "sortOrder": 105,
+      "source": {
+        "name": "EDGAR Community GHG Database",
+        "organization": "European Commission JRC and IEA",
+        "homepageUrl": "https://edgar.jrc.ec.europa.eu/",
+        "dataUrl": "https://data.worldbank.org/indicator/EN.GHG.CH4.MT.CE.AR5",
+        "license": "CC BY 4.0",
+        "fetchedAt": "2026-08-17T13:36:13.195Z"
+      },
+      "observations": [
+        {
+          "year": 1970,
+          "value": 5879.79059587749
+        },
+        {
+          "year": 1971,
+          "value": 5951.92011299112
+        },
+        {
+          "year": 1972,
+          "value": 6060.75035652409
+        },
+        {
+          "year": 1973,
+          "value": 6242.76931333105
+        },
+        {
+          "year": 1974,
+          "value": 6279.13415884656
+        },
+        {
+          "year": 1975,
+          "value": 6347.94100246987
+        },
+        {
+          "year": 1976,
+          "value": 6441.87576690634
+        },
+        {
+          "year": 1977,
+          "value": 6523.73045513005
+        },
+        {
+          "year": 1978,
+          "value": 6582.91775836876
+        },
+        {
+          "year": 1979,
+          "value": 6720.77786783279
+        },
+        {
+          "year": 1980,
+          "value": 6684.2231973214
+        },
+        {
+          "year": 1981,
+          "value": 6565.12185102511
+        },
+        {
+          "year": 1982,
+          "value": 6620.99373844668
+        },
+        {
+          "year": 1983,
+          "value": 6657.8041761222
+        },
+        {
+          "year": 1984,
+          "value": 6776.85846023122
+        },
+        {
+          "year": 1985,
+          "value": 6851.16842841048
+        },
+        {
+          "year": 1986,
+          "value": 6966.52275736341
+        },
+        {
+          "year": 1987,
+          "value": 7031.75226767875
+        },
+        {
+          "year": 1988,
+          "value": 7183.61229033759
+        },
+        {
+          "year": 1989,
+          "value": 7349.12645456683
+        },
+        {
+          "year": 1990,
+          "value": 7340.90402442337
+        },
+        {
+          "year": 1991,
+          "value": 7270.1654217708
+        },
+        {
+          "year": 1992,
+          "value": 7287.91625586329
+        },
+        {
+          "year": 1993,
+          "value": 7260.47996414149
+        },
+        {
+          "year": 1994,
+          "value": 7333.49277632579
+        },
+        {
+          "year": 1995,
+          "value": 7420.23378260362
+        },
+        {
+          "year": 1996,
+          "value": 7511.95682610203
+        },
+        {
+          "year": 1997,
+          "value": 7477.02778441617
+        },
+        {
+          "year": 1998,
+          "value": 7388.89235040218
+        },
+        {
+          "year": 1999,
+          "value": 7401.91556212124
+        },
+        {
+          "year": 2000,
+          "value": 7495.12176072211
+        },
+        {
+          "year": 2001,
+          "value": 7498.29141124229
+        },
+        {
+          "year": 2002,
+          "value": 7464.20932352283
+        },
+        {
+          "year": 2003,
+          "value": 7688.30750973836
+        },
+        {
+          "year": 2004,
+          "value": 7839.17677630632
+        },
+        {
+          "year": 2005,
+          "value": 7972.05685302853
+        },
+        {
+          "year": 2006,
+          "value": 8099.28744546312
+        },
+        {
+          "year": 2007,
+          "value": 8153.78438784794
+        },
+        {
+          "year": 2008,
+          "value": 8283.49849033711
+        },
+        {
+          "year": 2009,
+          "value": 8258.48437032833
+        },
+        {
+          "year": 2010,
+          "value": 8413.66579684347
+        },
+        {
+          "year": 2011,
+          "value": 8617.18697017086
+        },
+        {
+          "year": 2012,
+          "value": 8716.94947818095
+        },
+        {
+          "year": 2013,
+          "value": 8719.77693915405
+        },
+        {
+          "year": 2014,
+          "value": 8788.34068813009
+        },
+        {
+          "year": 2015,
+          "value": 8812.53639831332
+        },
+        {
+          "year": 2016,
+          "value": 8847.60913726958
+        },
+        {
+          "year": 2017,
+          "value": 8969.48967933722
+        },
+        {
+          "year": 2018,
+          "value": 9103.43348704221
+        },
+        {
+          "year": 2019,
+          "value": 9180.89483326415
+        },
+        {
+          "year": 2020,
+          "value": 9055.83199015276
+        },
+        {
+          "year": 2021,
+          "value": 9180.39314399478
+        },
+        {
+          "year": 2022,
+          "value": 9335.03820912784
+        },
+        {
+          "year": 2023,
+          "value": 9471.52094805826
+        },
+        {
+          "year": 2024,
+          "value": 9536.49388054425
+        }
+      ]
+    },
+    {
+      "slug": "forest-area",
+      "name": "Forest area",
+      "shortLabel": "Forest area",
+      "unit": "% of land area",
+      "description": "The share of land under natural or planted stands of trees at least 5 meters tall, whether productive or not. Excludes trees in agricultural production systems such as fruit plantations and agroforestry, and trees in urban parks and gardens.",
+      "methodologyNote": "Official FAO series for SDG 15.1.1 from the Global Forest Resources Assessment, accessed via World Bank WDI (AG.LND.FRST.ZS). This is the published World share, not an average computed from country rows. Only years with a published World value are shown.",
+      "category": "planet",
+      "higherIsBetter": true,
+      "worldBankCode": "AG.LND.FRST.ZS",
+      "decimals": 1,
+      "sortOrder": 110,
+      "source": {
+        "name": "Global Forest Resources Assessment",
+        "organization": "Food and Agriculture Organization of the United Nations",
+        "homepageUrl": "https://www.fao.org/forest-resources-assessment/",
+        "dataUrl": "https://data.worldbank.org/indicator/AG.LND.FRST.ZS",
+        "license": "CC BY 4.0",
+        "fetchedAt": "2026-08-17T13:36:13.195Z"
+      },
+      "observations": [
+        {
+          "year": 1992,
+          "value": 33.0081106345582
+        },
+        {
+          "year": 1993,
+          "value": 32.8251630620547
+        },
+        {
+          "year": 1994,
+          "value": 32.7677904148374
+        },
+        {
+          "year": 1995,
+          "value": 32.7081545895172
+        },
+        {
+          "year": 1996,
+          "value": 32.6478592834619
+        },
+        {
+          "year": 1997,
+          "value": 32.569666883165
+        },
+        {
+          "year": 1998,
+          "value": 32.515947762313
+        },
+        {
+          "year": 1999,
+          "value": 32.4538221057639
+        },
+        {
+          "year": 2000,
+          "value": 32.375953367859
+        },
+        {
+          "year": 2001,
+          "value": 32.3366225720433
+        },
+        {
+          "year": 2002,
+          "value": 32.2975480789114
+        },
+        {
+          "year": 2003,
+          "value": 32.256182970958
+        },
+        {
+          "year": 2004,
+          "value": 32.1793930409451
+        },
+        {
+          "year": 2005,
+          "value": 32.1391126078217
+        },
+        {
+          "year": 2006,
+          "value": 32.1007464727023
+        },
+        {
+          "year": 2007,
+          "value": 32.0616064728907
+        },
+        {
+          "year": 2008,
+          "value": 32.0264006482883
+        },
+        {
+          "year": 2009,
+          "value": 31.9875897857353
+        },
+        {
+          "year": 2010,
+          "value": 31.9477908205907
+        },
+        {
+          "year": 2011,
+          "value": 31.9136970029742
+        },
+        {
+          "year": 2012,
+          "value": 31.4732941934752
+        },
+        {
+          "year": 2013,
+          "value": 31.4391795333969
+        },
+        {
+          "year": 2014,
+          "value": 31.4052322657445
+        },
+        {
+          "year": 2015,
+          "value": 31.3693393135451
+        },
+        {
+          "year": 2016,
+          "value": 31.3412450193438
+        },
+        {
+          "year": 2017,
+          "value": 31.2898670792534
+        },
+        {
+          "year": 2018,
+          "value": 31.2519934605387
+        },
+        {
+          "year": 2019,
+          "value": 31.2122951708407
+        },
+        {
+          "year": 2020,
+          "value": 31.1715969051644
+        },
+        {
+          "year": 2021,
+          "value": 31.1717259151458
+        },
+        {
+          "year": 2022,
+          "value": 31.133948934895
+        },
+        {
+          "year": 2023,
+          "value": 31.0951828663057
+        }
+      ]
+    },
+    {
+      "slug": "renewable-energy",
+      "name": "Renewable energy consumption",
+      "shortLabel": "Renewable energy",
+      "unit": "% of total final energy consumption",
+      "description": "The share of total final energy consumption that comes from renewable sources, including hydro, wind, solar, geothermal, and biomass.",
+      "methodologyNote": "Official SDG 7.2.1 series from Tracking SDG7 (IEA, IRENA, UNSD, World Bank, WHO), accessed via World Bank WDI (EG.FEC.RNEW.ZS). Includes traditional biomass as well as modern renewables, so the World share can fall while wind and solar grow. Only years with a published World value are shown.",
+      "category": "planet",
+      "higherIsBetter": true,
+      "worldBankCode": "EG.FEC.RNEW.ZS",
+      "decimals": 1,
+      "sortOrder": 115,
+      "source": {
+        "name": "Tracking SDG7 renewable energy dataset",
+        "organization": "IEA, IRENA, UNSD, World Bank, WHO",
+        "homepageUrl": "https://trackingsdg7.esmap.org/",
+        "dataUrl": "https://data.worldbank.org/indicator/EG.FEC.RNEW.ZS",
+        "license": "CC BY 4.0",
+        "fetchedAt": "2026-08-17T13:36:13.195Z"
+      },
+      "observations": [
+        {
+          "year": 1990,
+          "value": 16.6761728451138
+        },
+        {
+          "year": 1991,
+          "value": 16.8275092292776
+        },
+        {
+          "year": 1992,
+          "value": 17.1858871999502
+        },
+        {
+          "year": 1993,
+          "value": 17.2074395489013
+        },
+        {
+          "year": 1994,
+          "value": 17.3572712155107
+        },
+        {
+          "year": 1995,
+          "value": 17.4243468135946
+        },
+        {
+          "year": 1996,
+          "value": 17.4450890685685
+        },
+        {
+          "year": 1997,
+          "value": 17.4743432804444
+        },
+        {
+          "year": 1998,
+          "value": 17.6182879337665
+        },
+        {
+          "year": 1999,
+          "value": 17.8778259194218
+        },
+        {
+          "year": 2000,
+          "value": 17.5262813966932
+        },
+        {
+          "year": 2001,
+          "value": 17.2141012541802
+        },
+        {
+          "year": 2002,
+          "value": 17.2206557859887
+        },
+        {
+          "year": 2003,
+          "value": 17.067470633117
+        },
+        {
+          "year": 2004,
+          "value": 16.7834791518651
+        },
+        {
+          "year": 2005,
+          "value": 16.6370993331808
+        },
+        {
+          "year": 2006,
+          "value": 16.7290772224366
+        },
+        {
+          "year": 2007,
+          "value": 16.5374660334277
+        },
+        {
+          "year": 2008,
+          "value": 16.6569817886533
+        },
+        {
+          "year": 2009,
+          "value": 17.0654993607187
+        },
+        {
+          "year": 2010,
+          "value": 16.7414815095897
+        },
+        {
+          "year": 2011,
+          "value": 16.6987205578704
+        },
+        {
+          "year": 2012,
+          "value": 16.8962150785112
+        },
+        {
+          "year": 2013,
+          "value": 17.1692464159295
+        },
+        {
+          "year": 2014,
+          "value": 17.3299951573821
+        },
+        {
+          "year": 2015,
+          "value": 17.4035082673572
+        },
+        {
+          "year": 2016,
+          "value": 17.6281084915531
+        },
+        {
+          "year": 2017,
+          "value": 17.8541835016377
+        },
+        {
+          "year": 2018,
+          "value": 18.1052270747944
+        },
+        {
+          "year": 2019,
+          "value": 18.5751641385934
+        },
+        {
+          "year": 2020,
+          "value": 19.7355641050053
+        }
+      ]
+    },
+    {
       "slug": "battle-deaths",
       "name": "Battle-related deaths",
       "shortLabel": "Battle deaths",
@@ -2118,14 +2659,14 @@
       "higherIsBetter": false,
       "worldBankCode": "VC.BTL.DETH",
       "decimals": 0,
-      "sortOrder": 105,
+      "sortOrder": 120,
       "source": {
         "name": "UCDP Battle-Related Deaths Dataset",
         "organization": "Uppsala Conflict Data Program, Uppsala University",
         "homepageUrl": "https://ucdp.uu.se/",
         "dataUrl": "https://ucdp.uu.se/downloads/brd/ucdp-brd-conf-261-csv.zip",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:10:15.997Z"
+        "fetchedAt": "2026-08-17T13:36:13.195Z"
       },
       "observations": [
         {

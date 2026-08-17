@@ -8,10 +8,10 @@ import { MetricTile } from "@/components/metric-tile";
 import { YearScrubber } from "@/components/year-scrubber";
 import {
   defaultYear,
+  displayForYear,
   firstObservation,
   formatMetricValue,
   trendForYear,
-  valueAtYear,
   yearBounds,
 } from "@/lib/format";
 import { translatedMetric } from "@/lib/i18n";
@@ -35,75 +35,6 @@ export function HumanityExplorer({ snapshot }: HumanityExplorerProps) {
   const { minYear, maxYear } = yearBounds(snapshot.metrics);
   const initialYear = defaultYear(snapshot.metrics);
   const [year, setYear] = useState(initialYear);
-
-  // #region agent log
-  fetch("http://127.0.0.1:7584/ingest/9917541d-c336-47ab-9751-0064368ba7ca", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Debug-Session-Id": "1ec86f",
-    },
-    body: JSON.stringify({
-      sessionId: "1ec86f",
-      runId: "pre-fix",
-      hypothesisId: "A",
-      location: "humanity-explorer.tsx:HumanityExplorer",
-      message: "year bounds and selected year",
-      data: {
-        minYear,
-        maxYear,
-        selectedYear: year,
-        metricYearSpans: snapshot.metrics.map((metric) => ({
-          slug: metric.slug,
-          first: metric.observations[0]?.year ?? null,
-          last:
-            metric.observations[metric.observations.length - 1]?.year ?? null,
-          hasSelected: metric.observations.some((point) => point.year === year),
-          yearTypes: [
-            ...new Set(metric.observations.slice(0, 3).map((point) => typeof point.year)),
-          ],
-        })),
-        missingAtSelected: snapshot.metrics
-          .filter(
-            (metric) =>
-              !metric.observations.some((point) => point.year === year),
-          )
-          .map((metric) => metric.slug),
-      },
-      timestamp: Date.now(),
-    }),
-  }).catch(() => {});
-  // #endregion
-
-  // #region agent log
-  fetch("http://127.0.0.1:7584/ingest/9917541d-c336-47ab-9751-0064368ba7ca", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Debug-Session-Id": "1ec86f",
-    },
-    body: JSON.stringify({
-      sessionId: "1ec86f",
-      runId: "post-fix",
-      hypothesisId: "A",
-      location: "humanity-explorer.tsx:HumanityExplorer:post-fix",
-      message: "default year after coverage fix",
-      data: {
-        minYear,
-        maxYear,
-        initialYear,
-        selectedYear: year,
-        missingAtSelected: snapshot.metrics
-          .filter(
-            (metric) =>
-              !metric.observations.some((point) => point.year === year),
-          )
-          .map((metric) => metric.slug),
-      },
-      timestamp: Date.now(),
-    }),
-  }).catch(() => {});
-  // #endregion
 
   const chapters = CHAPTER_ORDER.map((category) => ({
     category,
@@ -191,8 +122,8 @@ function ThenNowRow({
   const { locale, t } = useLocale();
   const copy = translatedMetric(metric, locale);
   const first = firstObservation(metric);
-  const current = valueAtYear(metric, year);
-  const trend = trendForYear(metric, year);
+  const display = displayForYear(metric, year);
+  const trend = display ? trendForYear(metric, display.year) : null;
 
   return (
     <div className="grid gap-3 px-5 py-4 sm:grid-cols-[1.2fr_1fr_1fr_auto] sm:items-center">
@@ -206,9 +137,11 @@ function ThenNowRow({
           : "—"}
       </p>
       <p className="text-sm">
-        {current === null
+        {display === null
           ? t.noEstimate
-          : `${year}: ${formatMetricValue(current, metric.decimals, locale)}`}
+          : display.kind === "last"
+            ? `${t.lastReading(display.year)}: ${formatMetricValue(display.value, metric.decimals, locale)}`
+            : `${year}: ${formatMetricValue(display.value, metric.decimals, locale)}`}
       </p>
       <p
         className={`text-sm ${

@@ -37,7 +37,7 @@ export const CHAPTERS: Record<
   knowledge: { title: "Knowledge", eyebrow: "Literacy" },
   living: { title: "Living standards", eyebrow: "Poverty, energy, water, food" },
   conflict: { title: "Conflict", eyebrow: "Battle deaths" },
-  planet: { title: "Planet", eyebrow: "Emissions" },
+  planet: { title: "Planet", eyebrow: "Climate, energy, land" },
 };
 
 export const METRIC_CANDIDATES: MetricCandidate[] = [
@@ -285,6 +285,72 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     },
   },
   {
+    slug: "methane",
+    name: "Methane emissions (total)",
+    shortLabel: "Methane",
+    unit: "Mt CO₂e, excluding LULUCF",
+    description:
+      "Annual methane (CH₄) emissions from agriculture, energy, waste, and industry, excluding land use, land-use change, and forestry, in million tonnes of CO₂ equivalent.",
+    methodologyNote:
+      "Current World Bank WDI greenhouse-gas series (EN.GHG.CH4.MT.CE.AR5), sourced from the European Commission JRC EDGAR Community GHG Database and the IEA. Values use IPCC AR5 100-year global warming potentials. This is the published World total, not a sum computed from country rows. Only years with a published World value are shown.",
+    category: "planet",
+    higherIsBetter: false,
+    worldBankCode: "EN.GHG.CH4.MT.CE.AR5",
+    decimals: 0,
+    sortOrder: 105,
+    source: {
+      name: "EDGAR Community GHG Database",
+      organization: "European Commission JRC and IEA",
+      homepageUrl: "https://edgar.jrc.ec.europa.eu/",
+      dataUrl: "https://data.worldbank.org/indicator/EN.GHG.CH4.MT.CE.AR5",
+      license: "CC BY 4.0",
+    },
+  },
+  {
+    slug: "forest-area",
+    name: "Forest area",
+    shortLabel: "Forest area",
+    unit: "% of land area",
+    description:
+      "The share of land under natural or planted stands of trees at least 5 meters tall, whether productive or not. Excludes trees in agricultural production systems such as fruit plantations and agroforestry, and trees in urban parks and gardens.",
+    methodologyNote:
+      "Official FAO series for SDG 15.1.1 from the Global Forest Resources Assessment, accessed via World Bank WDI (AG.LND.FRST.ZS). This is the published World share, not an average computed from country rows. Only years with a published World value are shown.",
+    category: "planet",
+    higherIsBetter: true,
+    worldBankCode: "AG.LND.FRST.ZS",
+    decimals: 1,
+    sortOrder: 110,
+    source: {
+      name: "Global Forest Resources Assessment",
+      organization: "Food and Agriculture Organization of the United Nations",
+      homepageUrl: "https://www.fao.org/forest-resources-assessment/",
+      dataUrl: "https://data.worldbank.org/indicator/AG.LND.FRST.ZS",
+      license: "CC BY 4.0",
+    },
+  },
+  {
+    slug: "renewable-energy",
+    name: "Renewable energy consumption",
+    shortLabel: "Renewable energy",
+    unit: "% of total final energy consumption",
+    description:
+      "The share of total final energy consumption that comes from renewable sources, including hydro, wind, solar, geothermal, and biomass.",
+    methodologyNote:
+      "Official SDG 7.2.1 series from Tracking SDG7 (IEA, IRENA, UNSD, World Bank, WHO), accessed via World Bank WDI (EG.FEC.RNEW.ZS). Includes traditional biomass as well as modern renewables, so the World share can fall while wind and solar grow. Only years with a published World value are shown.",
+    category: "planet",
+    higherIsBetter: true,
+    worldBankCode: "EG.FEC.RNEW.ZS",
+    decimals: 1,
+    sortOrder: 115,
+    source: {
+      name: "Tracking SDG7 renewable energy dataset",
+      organization: "IEA, IRENA, UNSD, World Bank, WHO",
+      homepageUrl: "https://trackingsdg7.esmap.org/",
+      dataUrl: "https://data.worldbank.org/indicator/EG.FEC.RNEW.ZS",
+      license: "CC BY 4.0",
+    },
+  },
+  {
     slug: "battle-deaths",
     name: "Battle-related deaths",
     shortLabel: "Battle deaths",
@@ -297,7 +363,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     higherIsBetter: false,
     worldBankCode: "VC.BTL.DETH",
     decimals: 0,
-    sortOrder: 105,
+    sortOrder: 120,
     source: {
       name: "UCDP Battle-Related Deaths Dataset",
       organization: "Uppsala Conflict Data Program, Uppsala University",
