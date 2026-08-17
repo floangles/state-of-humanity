@@ -4,8 +4,295 @@
     "name": "World",
     "type": "world"
   },
-  "fetchedAt": "2026-08-17T13:49:16.903Z",
+  "fetchedAt": "2026-08-17T20:27:02.850Z",
   "metrics": [
+    {
+      "slug": "world-population",
+      "name": "World population",
+      "shortLabel": "Population",
+      "unit": "people",
+      "description": "The midyear de facto world population: all residents, regardless of legal status or citizenship.",
+      "methodologyNote": "World aggregate published by the World Bank World Development Indicators (SP.POP.TOTL), sourced from the United Nations Population Division World Population Prospects and national statistical offices. Midyear estimates. This is the published World total, not a sum computed from country rows. Only years with a published World value are shown.",
+      "category": "survival",
+      "higherIsBetter": true,
+      "worldBankCode": "SP.POP.TOTL",
+      "decimals": 0,
+      "sortOrder": 5,
+      "source": {
+        "name": "World Population Prospects",
+        "organization": "UN DESA Population Division",
+        "homepageUrl": "https://population.un.org/wpp/",
+        "dataUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL",
+        "license": "CC BY 4.0",
+        "fetchedAt": "2026-08-17T20:27:02.850Z"
+      },
+      "observations": [
+        {
+          "year": 1960,
+          "value": 3021512598
+        },
+        {
+          "year": 1961,
+          "value": 3062768116
+        },
+        {
+          "year": 1962,
+          "value": 3117372187
+        },
+        {
+          "year": 1963,
+          "value": 3184063049
+        },
+        {
+          "year": 1964,
+          "value": 3251249170
+        },
+        {
+          "year": 1965,
+          "value": 3318979339
+        },
+        {
+          "year": 1966,
+          "value": 3389042165
+        },
+        {
+          "year": 1967,
+          "value": 3458932230
+        },
+        {
+          "year": 1968,
+          "value": 3530576858
+        },
+        {
+          "year": 1969,
+          "value": 3604694154
+        },
+        {
+          "year": 1970,
+          "value": 3680493750
+        },
+        {
+          "year": 1971,
+          "value": 3758515396
+        },
+        {
+          "year": 1972,
+          "value": 3834345191
+        },
+        {
+          "year": 1973,
+          "value": 3910964219
+        },
+        {
+          "year": 1974,
+          "value": 3987186772
+        },
+        {
+          "year": 1975,
+          "value": 4061959945
+        },
+        {
+          "year": 1976,
+          "value": 4135644231
+        },
+        {
+          "year": 1977,
+          "value": 4208840894
+        },
+        {
+          "year": 1978,
+          "value": 4283309396
+        },
+        {
+          "year": 1979,
+          "value": 4359930896
+        },
+        {
+          "year": 1980,
+          "value": 4437473406
+        },
+        {
+          "year": 1981,
+          "value": 4516792587
+        },
+        {
+          "year": 1982,
+          "value": 4599385851
+        },
+        {
+          "year": 1983,
+          "value": 4682734714
+        },
+        {
+          "year": 1984,
+          "value": 4765813206
+        },
+        {
+          "year": 1985,
+          "value": 4850494238
+        },
+        {
+          "year": 1986,
+          "value": 4937459951
+        },
+        {
+          "year": 1987,
+          "value": 5026770385
+        },
+        {
+          "year": 1988,
+          "value": 5116898810
+        },
+        {
+          "year": 1989,
+          "value": 5207378374
+        },
+        {
+          "year": 1990,
+          "value": 5298962018
+        },
+        {
+          "year": 1991,
+          "value": 5388203305
+        },
+        {
+          "year": 1992,
+          "value": 5476822930
+        },
+        {
+          "year": 1993,
+          "value": 5564459142
+        },
+        {
+          "year": 1994,
+          "value": 5650534421
+        },
+        {
+          "year": 1995,
+          "value": 5736205135
+        },
+        {
+          "year": 1996,
+          "value": 5822327903
+        },
+        {
+          "year": 1997,
+          "value": 5908180322
+        },
+        {
+          "year": 1998,
+          "value": 5993730786
+        },
+        {
+          "year": 1999,
+          "value": 6078069822
+        },
+        {
+          "year": 2000,
+          "value": 6161528496
+        },
+        {
+          "year": 2001,
+          "value": 6244739668
+        },
+        {
+          "year": 2002,
+          "value": 6327171255
+        },
+        {
+          "year": 2003,
+          "value": 6409352386
+        },
+        {
+          "year": 2004,
+          "value": 6492354627
+        },
+        {
+          "year": 2005,
+          "value": 6575410029
+        },
+        {
+          "year": 2006,
+          "value": 6659536021
+        },
+        {
+          "year": 2007,
+          "value": 6744049498
+        },
+        {
+          "year": 2008,
+          "value": 6830080867
+        },
+        {
+          "year": 2009,
+          "value": 6916168196
+        },
+        {
+          "year": 2010,
+          "value": 7000860073
+        },
+        {
+          "year": 2011,
+          "value": 7086704141
+        },
+        {
+          "year": 2012,
+          "value": 7176482165
+        },
+        {
+          "year": 2013,
+          "value": 7265404737
+        },
+        {
+          "year": 2014,
+          "value": 7353532223
+        },
+        {
+          "year": 2015,
+          "value": 7441084771
+        },
+        {
+          "year": 2016,
+          "value": 7528221579
+        },
+        {
+          "year": 2017,
+          "value": 7613788655
+        },
+        {
+          "year": 2018,
+          "value": 7696159728
+        },
+        {
+          "year": 2019,
+          "value": 7777162476
+        },
+        {
+          "year": 2020,
+          "value": 7853863139
+        },
+        {
+          "year": 2021,
+          "value": 7919567995
+        },
+        {
+          "year": 2022,
+          "value": 7988550201
+        },
+        {
+          "year": 2023,
+          "value": 8062923417
+        },
+        {
+          "year": 2024,
+          "value": 8140897523
+        },
+        {
+          "year": 2025,
+          "value": 8215424893
+        }
+      ]
+    },
     {
       "slug": "life-expectancy",
       "name": "Life expectancy at birth",
@@ -24,7 +311,7 @@
         "homepageUrl": "https://population.un.org/wpp/",
         "dataUrl": "https://data.worldbank.org/indicator/SP.DYN.LE00.IN",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:49:16.903Z"
+        "fetchedAt": "2026-08-17T20:27:02.850Z"
       },
       "observations": [
         {
@@ -307,7 +594,7 @@
         "homepageUrl": "https://childmortality.org",
         "dataUrl": "https://data.worldbank.org/indicator/SP.DYN.IMRT.IN",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:49:16.903Z"
+        "fetchedAt": "2026-08-17T20:27:02.850Z"
       },
       "observations": [
         {
@@ -470,7 +757,7 @@
         "homepageUrl": "https://www.who.int/data/gho/data/themes/maternal-and-reproductive-health/maternal-mortality-ratio",
         "dataUrl": "https://data.worldbank.org/indicator/SH.STA.MMRT",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:49:16.903Z"
+        "fetchedAt": "2026-08-17T20:27:02.850Z"
       },
       "observations": [
         {
@@ -649,7 +936,7 @@
         "homepageUrl": "https://immunizationdata.who.int/",
         "dataUrl": "https://data.worldbank.org/indicator/SH.IMM.MEAS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:49:16.903Z"
+        "fetchedAt": "2026-08-17T20:27:02.850Z"
       },
       "observations": [
         {
@@ -852,7 +1139,7 @@
         "homepageUrl": "https://databrowser.uis.unesco.org/",
         "dataUrl": "https://data.worldbank.org/indicator/SE.ADT.LITR.ZS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:49:16.903Z"
+        "fetchedAt": "2026-08-17T20:27:02.850Z"
       },
       "observations": [
         {
@@ -1075,7 +1362,7 @@
         "homepageUrl": "https://pip.worldbank.org/",
         "dataUrl": "https://data.worldbank.org/indicator/SI.POV.DDAY",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:49:16.903Z"
+        "fetchedAt": "2026-08-17T20:27:02.850Z"
       },
       "observations": [
         {
@@ -1270,7 +1557,7 @@
         "homepageUrl": "https://wid.world/",
         "dataUrl": "https://wid.world/bulk_download/WID_data_WO.csv",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:49:16.903Z"
+        "fetchedAt": "2026-08-17T20:27:02.850Z"
       },
       "observations": [
         {
@@ -1469,7 +1756,7 @@
         "homepageUrl": "https://trackingsdg7.esmap.org/",
         "dataUrl": "https://data.worldbank.org/indicator/EG.ELC.ACCS.ZS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:49:16.903Z"
+        "fetchedAt": "2026-08-17T20:27:02.850Z"
       },
       "observations": [
         {
@@ -1600,7 +1887,7 @@
         "homepageUrl": "https://washdata.org/",
         "dataUrl": "https://data.worldbank.org/indicator/SH.H2O.BASW.ZS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:49:16.903Z"
+        "fetchedAt": "2026-08-17T20:27:02.850Z"
       },
       "observations": [
         {
@@ -1723,7 +2010,7 @@
         "homepageUrl": "https://www.fao.org/faostat/",
         "dataUrl": "https://data.worldbank.org/indicator/SN.ITK.DEFC.ZS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:49:16.903Z"
+        "fetchedAt": "2026-08-17T20:27:02.850Z"
       },
       "observations": [
         {
@@ -1838,7 +2125,7 @@
         "homepageUrl": "https://edgar.jrc.ec.europa.eu/",
         "dataUrl": "https://data.worldbank.org/indicator/EN.GHG.CO2.MT.CE.AR5",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:49:16.903Z"
+        "fetchedAt": "2026-08-17T20:27:02.850Z"
       },
       "observations": [
         {
@@ -2081,7 +2368,7 @@
         "homepageUrl": "https://edgar.jrc.ec.europa.eu/",
         "dataUrl": "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:49:16.903Z"
+        "fetchedAt": "2026-08-17T20:27:02.850Z"
       },
       "observations": [
         {
@@ -2324,7 +2611,7 @@
         "homepageUrl": "https://edgar.jrc.ec.europa.eu/",
         "dataUrl": "https://data.worldbank.org/indicator/EN.GHG.CH4.MT.CE.AR5",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:49:16.903Z"
+        "fetchedAt": "2026-08-17T20:27:02.850Z"
       },
       "observations": [
         {
@@ -2567,7 +2854,7 @@
         "homepageUrl": "https://www.fao.org/forest-resources-assessment/",
         "dataUrl": "https://data.worldbank.org/indicator/AG.LND.FRST.ZS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:49:16.903Z"
+        "fetchedAt": "2026-08-17T20:27:02.850Z"
       },
       "observations": [
         {
@@ -2718,7 +3005,7 @@
         "homepageUrl": "https://trackingsdg7.esmap.org/",
         "dataUrl": "https://data.worldbank.org/indicator/EG.FEC.RNEW.ZS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:49:16.903Z"
+        "fetchedAt": "2026-08-17T20:27:02.850Z"
       },
       "observations": [
         {
@@ -2865,7 +3152,7 @@
         "homepageUrl": "https://ucdp.uu.se/",
         "dataUrl": "https://ucdp.uu.se/downloads/brd/ucdp-brd-conf-261-csv.zip",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:49:16.903Z"
+        "fetchedAt": "2026-08-17T20:27:02.850Z"
       },
       "observations": [
         {

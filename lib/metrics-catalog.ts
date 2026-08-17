@@ -33,7 +33,7 @@ export const CHAPTERS: Record<
   Category,
   { title: string; eyebrow: string }
 > = {
-  survival: { title: "Survival", eyebrow: "Health and longevity" },
+  survival: { title: "Survival", eyebrow: "Population, health and longevity" },
   knowledge: { title: "Knowledge", eyebrow: "Literacy" },
   living: {
     title: "Living standards",
@@ -44,6 +44,28 @@ export const CHAPTERS: Record<
 };
 
 export const METRIC_CANDIDATES: MetricCandidate[] = [
+  {
+    slug: "world-population",
+    name: "World population",
+    shortLabel: "Population",
+    unit: "people",
+    description:
+      "The midyear de facto world population: all residents, regardless of legal status or citizenship.",
+    methodologyNote:
+      "World aggregate published by the World Bank World Development Indicators (SP.POP.TOTL), sourced from the United Nations Population Division World Population Prospects and national statistical offices. Midyear estimates. This is the published World total, not a sum computed from country rows. Only years with a published World value are shown.",
+    category: "survival",
+    higherIsBetter: true,
+    worldBankCode: "SP.POP.TOTL",
+    decimals: 0,
+    sortOrder: 5,
+    source: {
+      name: "World Population Prospects",
+      organization: "UN DESA Population Division",
+      homepageUrl: "https://population.un.org/wpp/",
+      dataUrl: "https://data.worldbank.org/indicator/SP.POP.TOTL",
+      license: "CC BY 4.0",
+    },
+  },
   {
     slug: "life-expectancy",
     name: "Life expectancy at birth",
