@@ -1,0 +1,284 @@
+export const CATEGORIES = ["survival", "knowledge", "living", "planet"] as const;
+
+export type Category = (typeof CATEGORIES)[number];
+
+export type MetricCandidate = {
+  slug: string;
+  name: string;
+  shortLabel: string;
+  unit: string;
+  description: string;
+  methodologyNote: string;
+  category: Category;
+  higherIsBetter: boolean;
+  worldBankCode: string;
+  decimals: number;
+  sortOrder: number;
+  source: {
+    name: string;
+    organization: string;
+    homepageUrl: string;
+    dataUrl: string;
+    license: string;
+  };
+};
+
+export const CHAPTERS: Record<
+  Category,
+  { title: string; eyebrow: string }
+> = {
+  survival: { title: "Survival", eyebrow: "Health and longevity" },
+  knowledge: { title: "Knowledge", eyebrow: "Literacy" },
+  living: { title: "Living standards", eyebrow: "Poverty, energy, water, food" },
+  planet: { title: "Planet", eyebrow: "Emissions" },
+};
+
+export const METRIC_CANDIDATES: MetricCandidate[] = [
+  {
+    slug: "life-expectancy",
+    name: "Life expectancy at birth",
+    shortLabel: "Life expectancy",
+    unit: "years",
+    description:
+      "The number of years a newborn would live if prevailing patterns of mortality at the time of birth stayed the same throughout its life.",
+    methodologyNote:
+      "World aggregate published by the World Bank World Development Indicators, sourced from the United Nations Population Division World Population Prospects and national statistical offices. Only years with a published World value are shown.",
+    category: "survival",
+    higherIsBetter: true,
+    worldBankCode: "SP.DYN.LE00.IN",
+    decimals: 1,
+    sortOrder: 10,
+    source: {
+      name: "World Population Prospects",
+      organization: "UN DESA Population Division",
+      homepageUrl: "https://population.un.org/wpp/",
+      dataUrl: "https://data.worldbank.org/indicator/SP.DYN.LE00.IN",
+      license: "CC BY 4.0",
+    },
+  },
+  {
+    slug: "infant-mortality",
+    name: "Infant mortality rate",
+    shortLabel: "Infant mortality",
+    unit: "deaths before age 1 per 1,000 live births",
+    description:
+      "The number of infants dying before reaching one year of age, per 1,000 live births in a given year.",
+    methodologyNote:
+      "Official UN Inter-agency Group for Child Mortality Estimation (UN IGME) series, accessed via World Bank WDI. UN IGME is UNICEF, WHO, the World Bank, and UN DESA. Only years with a published World value are shown.",
+    category: "survival",
+    higherIsBetter: false,
+    worldBankCode: "SP.DYN.IMRT.IN",
+    decimals: 1,
+    sortOrder: 20,
+    source: {
+      name: "UN IGME child mortality estimates",
+      organization: "UN IGME (UNICEF, WHO, World Bank, UN DESA)",
+      homepageUrl: "https://childmortality.org",
+      dataUrl: "https://data.worldbank.org/indicator/SP.DYN.IMRT.IN",
+      license: "CC BY 4.0",
+    },
+  },
+  {
+    slug: "maternal-mortality",
+    name: "Maternal mortality ratio",
+    shortLabel: "Maternal mortality",
+    unit: "deaths per 100,000 live births",
+    description:
+      "The number of women who die from pregnancy-related causes while pregnant or within 42 days of pregnancy termination, per 100,000 live births.",
+    methodologyNote:
+      "Official UN Maternal Mortality Estimation Inter-Agency Group (MMEIG) series — WHO, UNICEF, UNFPA, World Bank, and UN DESA — accessed via World Bank WDI. Estimates are modeled. Only years with a published World value are shown.",
+    category: "survival",
+    higherIsBetter: false,
+    worldBankCode: "SH.STA.MMRT",
+    decimals: 0,
+    sortOrder: 30,
+    source: {
+      name: "UN MMEIG maternal mortality estimates",
+      organization: "UN MMEIG (WHO, UNICEF, UNFPA, World Bank, UN DESA)",
+      homepageUrl:
+        "https://www.who.int/data/gho/data/themes/maternal-and-reproductive-health/maternal-mortality-ratio",
+      dataUrl: "https://data.worldbank.org/indicator/SH.STA.MMRT",
+      license: "CC BY 4.0",
+    },
+  },
+  {
+    slug: "measles-immunization",
+    name: "Measles immunization",
+    shortLabel: "Measles immunization",
+    unit: "% of children ages 12–23 months",
+    description:
+      "The percentage of children ages 12–23 months who received the measles vaccination before 12 months or at any time before the survey.",
+    methodologyNote:
+      "Official WHO / UNICEF Estimates of National Immunization Coverage, accessed via World Bank WDI. Only years with a published World value are shown.",
+    category: "survival",
+    higherIsBetter: true,
+    worldBankCode: "SH.IMM.MEAS",
+    decimals: 0,
+    sortOrder: 40,
+    source: {
+      name: "WHO / UNICEF immunization coverage estimates",
+      organization: "WHO and UNICEF",
+      homepageUrl: "https://immunizationdata.who.int/",
+      dataUrl: "https://data.worldbank.org/indicator/SH.IMM.MEAS",
+      license: "CC BY 4.0",
+    },
+  },
+  {
+    slug: "adult-literacy",
+    name: "Adult literacy rate",
+    shortLabel: "Adult literacy",
+    unit: "% of people ages 15 and above",
+    description:
+      "The percentage of people ages 15 and above who can both read and write with understanding a short simple statement about their everyday life.",
+    methodologyNote:
+      "Official UNESCO Institute for Statistics (UIS) series, the custodian of SDG 4.6.2, accessed via World Bank WDI. Many high-income countries no longer report traditional literacy statistics. UIS may fill some gaps with its documented Global Age-specific Literacy Projections Model (GALP). This app never computes a world average. Only years with a published World value are shown.",
+    category: "knowledge",
+    higherIsBetter: true,
+    worldBankCode: "SE.ADT.LITR.ZS",
+    decimals: 1,
+    sortOrder: 50,
+    source: {
+      name: "UNESCO Institute for Statistics",
+      organization: "UNESCO UIS",
+      homepageUrl: "https://databrowser.uis.unesco.org/",
+      dataUrl: "https://data.worldbank.org/indicator/SE.ADT.LITR.ZS",
+      license: "CC BY 4.0",
+    },
+  },
+  {
+    slug: "extreme-poverty",
+    name: "Extreme poverty",
+    shortLabel: "Extreme poverty",
+    unit: "% of population below $3.00/day (2021 PPP)",
+    description:
+      "The percentage of the population living on less than $3.00 a day at 2021 purchasing-power-parity prices, the current World Bank international extreme-poverty line.",
+    methodologyNote:
+      "Official World Bank Poverty and Inequality Platform series (SDG 1.1.1), accessed via World Bank WDI. The current line is $3.00/day in 2021 PPP, not the retired $2.15/day (2017 PPP) line. Only years with a published World value are shown.",
+    category: "living",
+    higherIsBetter: false,
+    worldBankCode: "SI.POV.DDAY",
+    decimals: 1,
+    sortOrder: 60,
+    source: {
+      name: "Poverty and Inequality Platform",
+      organization: "World Bank",
+      homepageUrl: "https://pip.worldbank.org/",
+      dataUrl: "https://data.worldbank.org/indicator/SI.POV.DDAY",
+      license: "CC BY 4.0",
+    },
+  },
+  {
+    slug: "electricity-access",
+    name: "Access to electricity",
+    shortLabel: "Electricity access",
+    unit: "% of population",
+    description:
+      "The percentage of the population with access to electricity.",
+    methodologyNote:
+      "Official SDG 7.1.1 electrification series from Tracking SDG7 / ESMAP (World Bank, IEA, IRENA, UNSD, WHO), accessed via World Bank WDI. Only years with a published World value are shown.",
+    category: "living",
+    higherIsBetter: true,
+    worldBankCode: "EG.ELC.ACCS.ZS",
+    decimals: 1,
+    sortOrder: 70,
+    source: {
+      name: "Tracking SDG7 electrification dataset",
+      organization: "ESMAP / World Bank, IEA, IRENA, UNSD, WHO",
+      homepageUrl: "https://trackingsdg7.esmap.org/",
+      dataUrl: "https://data.worldbank.org/indicator/EG.ELC.ACCS.ZS",
+      license: "CC BY 4.0",
+    },
+  },
+  {
+    slug: "basic-drinking-water",
+    name: "Basic drinking water",
+    shortLabel: "Basic drinking water",
+    unit: "% of population",
+    description:
+      "The percentage of the population using at least basic drinking water services.",
+    methodologyNote:
+      "Official WHO / UNICEF Joint Monitoring Programme (JMP) series for SDG 6.1, accessed via World Bank WDI. Only years with a published World value are shown.",
+    category: "living",
+    higherIsBetter: true,
+    worldBankCode: "SH.H2O.BASW.ZS",
+    decimals: 1,
+    sortOrder: 80,
+    source: {
+      name: "WHO / UNICEF Joint Monitoring Programme",
+      organization: "WHO and UNICEF JMP",
+      homepageUrl: "https://washdata.org/",
+      dataUrl: "https://data.worldbank.org/indicator/SH.H2O.BASW.ZS",
+      license: "CC BY 4.0",
+    },
+  },
+  {
+    slug: "undernourishment",
+    name: "Prevalence of undernourishment",
+    shortLabel: "Undernourishment",
+    unit: "% of population",
+    description:
+      "The percentage of the population whose habitual food consumption is insufficient to provide the dietary energy levels required to maintain a normal, active, and healthy life.",
+    methodologyNote:
+      "Official FAO series for SDG 2.1.1, accessed via World Bank WDI. Only years with a published World value are shown.",
+    category: "living",
+    higherIsBetter: false,
+    worldBankCode: "SN.ITK.DEFC.ZS",
+    decimals: 1,
+    sortOrder: 90,
+    source: {
+      name: "FAOSTAT undernourishment estimates",
+      organization: "Food and Agriculture Organization of the United Nations",
+      homepageUrl: "https://www.fao.org/faostat/",
+      dataUrl: "https://data.worldbank.org/indicator/SN.ITK.DEFC.ZS",
+      license: "CC BY 4.0",
+    },
+  },
+  {
+    slug: "co2-total",
+    name: "CO₂ emissions (total)",
+    shortLabel: "CO₂ total",
+    unit: "Mt CO₂e, excluding LULUCF",
+    description:
+      "Annual carbon dioxide emissions from agriculture, energy, waste, and industry, excluding land use, land-use change, and forestry, in million tonnes of CO₂ equivalent.",
+    methodologyNote:
+      "Current World Bank WDI greenhouse-gas series (EN.GHG.CO2.MT.CE.AR5), sourced from the European Commission JRC EDGAR Community GHG Database and the IEA. This is the published World total, not a sum computed from country rows. Only years with a published World value are shown.",
+    category: "planet",
+    higherIsBetter: false,
+    worldBankCode: "EN.GHG.CO2.MT.CE.AR5",
+    decimals: 0,
+    sortOrder: 95,
+    source: {
+      name: "EDGAR Community GHG Database",
+      organization: "European Commission JRC and IEA",
+      homepageUrl: "https://edgar.jrc.ec.europa.eu/",
+      dataUrl: "https://data.worldbank.org/indicator/EN.GHG.CO2.MT.CE.AR5",
+      license: "CC BY 4.0",
+    },
+  },
+  {
+    slug: "co2-per-capita",
+    name: "CO₂ emissions per capita",
+    shortLabel: "CO₂ per capita",
+    unit: "t CO₂e per capita, excluding LULUCF",
+    description:
+      "Annual carbon dioxide emissions excluding land use, land-use change, and forestry, divided by population, in tonnes of CO₂ equivalent per person.",
+    methodologyNote:
+      "Current World Bank WDI greenhouse-gas series (EN.GHG.CO2.PC.CE.AR5), sourced from the European Commission JRC EDGAR Community GHG Database and the IEA. The retired WDI code EN.ATM.CO2E.PC is not used. Only years with a published World value are shown.",
+    category: "planet",
+    higherIsBetter: false,
+    worldBankCode: "EN.GHG.CO2.PC.CE.AR5",
+    decimals: 2,
+    sortOrder: 100,
+    source: {
+      name: "EDGAR Community GHG Database",
+      organization: "European Commission JRC and IEA",
+      homepageUrl: "https://edgar.jrc.ec.europa.eu/",
+      dataUrl: "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5",
+      license: "CC BY 4.0",
+    },
+  },
+];
+
+export function getCandidate(slug: string) {
+  return METRIC_CANDIDATES.find((metric) => metric.slug === slug);
+}
