@@ -1,14 +1,23 @@
+import { localeNumberFormat, type Locale } from "@/lib/i18n";
 import type { ShippedMetric } from "@/lib/types";
 
-export function formatMetricValue(value: number, decimals: number) {
-  return new Intl.NumberFormat("en-US", {
+export function formatMetricValue(
+  value: number,
+  decimals: number,
+  locale: Locale = "en",
+) {
+  return new Intl.NumberFormat(localeNumberFormat(locale), {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   }).format(value);
 }
 
-export function formatSignedDelta(value: number, decimals: number) {
-  const formatted = formatMetricValue(Math.abs(value), decimals);
+export function formatSignedDelta(
+  value: number,
+  decimals: number,
+  locale: Locale = "en",
+) {
+  const formatted = formatMetricValue(Math.abs(value), decimals, locale);
   if (value > 0) return `+${formatted}`;
   if (value < 0) return `−${formatted}`;
   return formatted;

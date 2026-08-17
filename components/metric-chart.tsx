@@ -12,7 +12,9 @@ import {
 
 import { CATEGORY_COLORS, chartSeries } from "@/lib/chart";
 import { formatMetricValue } from "@/lib/format";
+import { translatedMetric } from "@/lib/i18n";
 import type { ShippedMetric } from "@/lib/types";
+import { useLocale } from "@/components/locale-provider";
 
 type MetricChartProps = {
   metric: ShippedMetric;
@@ -23,6 +25,8 @@ export function MetricChart({
   metric,
   variant = "full",
 }: MetricChartProps) {
+  const { locale, t } = useLocale();
+  const copy = translatedMetric(metric, locale);
   const data = chartSeries(metric);
   const color = CATEGORY_COLORS[metric.category];
   const isSpark = variant === "spark";
@@ -61,9 +65,9 @@ export function MetricChart({
               tick={{ fill: "oklch(0.74 0.025 75)", fontSize: 12 }}
               tickLine={false}
               axisLine={false}
-              width={48}
+              width={64}
               tickFormatter={(value: number) =>
-                formatMetricValue(value, metric.decimals)
+                formatMetricValue(value, metric.decimals, locale)
               }
             />
             <Tooltip
@@ -78,7 +82,7 @@ export function MetricChart({
                   return (
                     <div className="rounded-md border border-border bg-card px-3 py-2 text-sm">
                       <div className="text-muted-foreground">{point.year}</div>
-                      <div>No official estimate</div>
+                      <div>{t.noEstimate}</div>
                     </div>
                   );
                 }
@@ -86,8 +90,8 @@ export function MetricChart({
                   <div className="rounded-md border border-border bg-card px-3 py-2 text-sm">
                     <div className="text-muted-foreground">{point.year}</div>
                     <div className="font-medium">
-                      {formatMetricValue(point.value, metric.decimals)}{" "}
-                      <span className="text-muted-foreground">{metric.unit}</span>
+                      {formatMetricValue(point.value, metric.decimals, locale)}{" "}
+                      <span className="text-muted-foreground">{copy.unit}</span>
                     </div>
                   </div>
                 );

@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
+import { useLocale } from "@/components/locale-provider";
 import { MetricTile } from "@/components/metric-tile";
 import { YearScrubber } from "@/components/year-scrubber";
-import { CHAPTERS } from "@/lib/metrics-catalog";
 import {
   firstObservation,
   formatMetricValue,
@@ -12,6 +13,7 @@ import {
   valueAtYear,
   yearBounds,
 } from "@/lib/format";
+import { translatedMetric } from "@/lib/i18n";
 import type { Category } from "@/lib/metrics-catalog";
 import type { ShippedMetric, WorldSeriesSnapshot } from "@/lib/types";
 
@@ -27,12 +29,13 @@ type HumanityExplorerProps = {
 };
 
 export function HumanityExplorer({ snapshot }: HumanityExplorerProps) {
+  const { locale, t } = useLocale();
   const { minYear, maxYear } = yearBounds(snapshot.metrics);
   const [year, setYear] = useState(maxYear);
 
   const chapters = CHAPTER_ORDER.map((category) => ({
     category,
-    ...CHAPTERS[category],
+    ...t.chapters[category],
     metrics: snapshot.metrics.filter((metric) => metric.category === category),
   })).filter((chapter) => chapter.metrics.length > 0);
 
@@ -40,14 +43,13 @@ export function HumanityExplorer({ snapshot }: HumanityExplorerProps) {
     <>
       <section className="mx-auto w-full max-w-6xl px-6 pt-16 pb-12">
         <p className="text-xs tracking-[0.28em] text-white/70 uppercase">
-          World · official series only
+          {t.heroEyebrow}
         </p>
         <h1 className="mt-4 max-w-3xl font-heading text-5xl leading-[1.05] font-light tracking-[0.08em] text-white uppercase text-balance sm:text-7xl">
-          State of Humanity
+          {t.heroTitle}
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
-          Published World aggregates from UN agencies, the World Bank, WHO,
-          UNESCO, FAO, and the European Commission JRC.
+          {t.heroLead}
         </p>
       </section>
 
@@ -61,11 +63,8 @@ export function HumanityExplorer({ snapshot }: HumanityExplorerProps) {
       <section className="mx-auto w-full max-w-6xl px-6 py-12">
         <div className="mb-6 flex items-end justify-between gap-4">
           <div>
-            <h2 className="font-heading text-3xl">Then vs {year}</h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              First official World point compared with the selected year. No
-              estimate means the producer did not publish a World value.
-            </p>
+            <h2 className="font-heading text-3xl">{t.thenVs(year)}</h2>
+            <p className="mt-2 text-sm text-muted-foreground">{t.thenVsHint}</p>
           </div>
         </div>
         <div className="divide-y divide-border rounded-2xl border border-border bg-card/60">
@@ -93,14 +92,17 @@ export function HumanityExplorer({ snapshot }: HumanityExplorerProps) {
       ))}
 
       <footer className="mx-auto w-full max-w-6xl px-6 pt-8 pb-16 text-sm text-muted-foreground">
-        Last ingested {new Date(snapshot.fetchedAt).toISOString().slice(0, 10)}.
-        Access channel: World Bank WDI, country code WLD.{" "}
+        {t.lastIngested(new Date(snapshot.fetchedAt).toISOString().slice(0, 10))}{" "}
+        {t.accessChannel}{" "}
         {snapshot.dropped.length > 0
-          ? `${snapshot.dropped.length} candidate${snapshot.dropped.length === 1 ? "" : "s"} dropped for lack of a World series.`
-          : `All ${snapshot.metrics.length} candidates had a published World series.`}{" "}
-        <a href="/sources" className="text-foreground underline-offset-4 hover:underline">
-          See sources
-        </a>
+          ? t.droppedCandidates(snapshot.dropped.length)
+          : t.allShipped(snapshot.metrics.length)}{" "}
+        <Link
+          href="/sources"
+          className="text-foreground underline-offset-4 hover:underline"
+        >
+          {t.seeSources}
+        </Link>
         .
       </footer>
     </>
@@ -114,6 +116,8 @@ function ThenNowRow({
   metric: ShippedMetric;
   year: number;
 }) {
+  const { locale, t } = useLocale();
+  const copy = translatedMetric(metric, locale);
   const first = firstObservation(metric);
   const current = valueAtYear(metric, year);
   const trend = trendForYear(metric, year);
@@ -121,18 +125,18 @@ function ThenNowRow({
   return (
     <div className="grid gap-3 px-5 py-4 sm:grid-cols-[1.2fr_1fr_1fr_auto] sm:items-center">
       <div>
-        <p className="font-medium">{metric.shortLabel}</p>
-        <p className="text-xs text-muted-foreground">{metric.unit}</p>
+        <p className="font-medium">{copy.shortLabel}</p>
+        <p className="text-xs text-muted-foreground">{copy.unit}</p>
       </div>
       <p className="text-sm text-muted-foreground">
         {first
-          ? `${first.year}: ${formatMetricValue(first.value, metric.decimals)}`
+          ? `${first.year}: ${formatMetricValue(first.value, metric.decimals, locale)}`
           : "—"}
       </p>
       <p className="text-sm">
         {current === null
-          ? "No official estimate"
-          : `${year}: ${formatMetricValue(current, metric.decimals)}`}
+          ? t.noEstimate
+          : `${year}: ${formatMetricValue(current, metric.decimals, locale)}`}
       </p>
       <p
         className={`text-sm ${
@@ -145,10 +149,10 @@ function ThenNowRow({
       >
         {trend
           ? trend.direction === "better"
-            ? "Better"
+            ? t.better
             : trend.direction === "worse"
-              ? "Worse"
-              : "Unchanged"
+              ? t.worse
+              : t.unchanged
           : "—"}
       </p>
     </div>

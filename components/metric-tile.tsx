@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
+import { useLocale } from "@/components/locale-provider";
 import { MetricChart } from "@/components/metric-chart";
 import { CATEGORY_COLORS } from "@/lib/chart";
 import {
@@ -10,6 +11,7 @@ import {
   trendForYear,
   valueAtYear,
 } from "@/lib/format";
+import { translatedMetric } from "@/lib/i18n";
 import type { ShippedMetric } from "@/lib/types";
 
 type MetricTileProps = {
@@ -18,6 +20,8 @@ type MetricTileProps = {
 };
 
 export function MetricTile({ metric, year }: MetricTileProps) {
+  const { locale, t } = useLocale();
+  const copy = translatedMetric(metric, locale);
   const value = valueAtYear(metric, year);
   const trend = trendForYear(metric, year);
   const color = CATEGORY_COLORS[metric.category];
@@ -29,11 +33,11 @@ export function MetricTile({ metric, year }: MetricTileProps) {
     >
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
-          <p className="text-sm text-muted-foreground">{metric.shortLabel}</p>
+          <p className="text-sm text-muted-foreground">{copy.shortLabel}</p>
           <div className="mt-1 min-h-[3.25rem]">
             {value === null ? (
               <p className="font-heading text-2xl leading-tight text-muted-foreground">
-                No official estimate
+                {t.noEstimate}
               </p>
             ) : (
               <motion.p
@@ -42,11 +46,11 @@ export function MetricTile({ metric, year }: MetricTileProps) {
                 animate={{ opacity: 1, y: 0 }}
                 className="font-heading text-4xl leading-none tracking-tight"
               >
-                {formatMetricValue(value, metric.decimals)}
+                {formatMetricValue(value, metric.decimals, locale)}
               </motion.p>
             )}
           </div>
-          <p className="mt-2 text-xs text-muted-foreground">{metric.unit}</p>
+          <p className="mt-2 text-xs text-muted-foreground">{copy.unit}</p>
         </div>
         {trend ? (
           <span
@@ -59,11 +63,11 @@ export function MetricTile({ metric, year }: MetricTileProps) {
             }`}
           >
             {trend.direction === "better"
-              ? "Better"
+              ? t.better
               : trend.direction === "worse"
-                ? "Worse"
-                : "Unchanged"}{" "}
-            vs {trend.fromYear}
+                ? t.worse
+                : t.unchanged}{" "}
+            {t.vs} {trend.fromYear}
           </span>
         ) : null}
       </div>
@@ -73,7 +77,7 @@ export function MetricTile({ metric, year }: MetricTileProps) {
       <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground">
         <span style={{ color }}>{metric.source.organization}</span>
         <span className="transition-colors group-hover:text-foreground">
-          Open series →
+          {t.openSeries}
         </span>
       </div>
     </Link>
