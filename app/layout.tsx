@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s · State of Humanity",
   },
   description:
-    "Official world series on survival, literacy, living standards, and emissions. No homemade averages.",
+    "Official world series on survival, literacy, living standards, conflict, and the planet. No homemade averages.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

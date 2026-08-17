@@ -73,7 +73,7 @@ export function SourcesList({ snapshot }: { snapshot: WorldSeriesSnapshot }) {
                         target="_blank"
                         rel="noreferrer"
                       >
-                        WDI
+                        {t.sourcesPage.dataLink}
                       </a>
                       <a
                         href={metric.source.homepageUrl}

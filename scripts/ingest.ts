@@ -8,7 +8,10 @@ import { config } from "dotenv";
 import { eq } from "drizzle-orm";
 
 import { getDb } from "../lib/db";
-import { METRIC_CANDIDATES } from "../lib/metrics-catalog";
+import {
+  METRIC_CANDIDATES,
+  type MetricCandidate,
+} from "../lib/metrics-catalog";
 import type { DroppedMetric, ShippedMetric, WorldSeriesSnapshot } from "../lib/types";
 import { geographies, metrics, observations, sources } from "../drizzle/schema";
 
@@ -20,6 +23,7 @@ const WDI_BASE = "https://api.worldbank.org/v2/country/WLD/indicator";
 const SNAPSHOT_PATH = path.join(process.cwd(), "data", "world-series.json");
 const UCDP_BRD_ZIP =
   "https://ucdp.uu.se/downloads/brd/ucdp-brd-conf-261-csv.zip";
+const WID_WORLD_CSV = "https://wid.world/bulk_download/WID_data_WO.csv";
 
 type WdiMeta = {
   page: number;
@@ -91,7 +95,7 @@ async function fetchWdiWorldSeries(code: string) {
   return points;
 }
 
-function splitCsvLine(line: string) {
+function splitCsvLine(line: string, delimiter = ",") {
   const cells: string[] = [];
   let current = "";
   let inQuotes = false;
@@ -105,7 +109,7 @@ function splitCsvLine(line: string) {
       } else {
         inQuotes = !inQuotes;
       }
-    } else if (char === "," && !inQuotes) {
+    } else if (char === delimiter && !inQuotes) {
       cells.push(current);
       current = "";
     } else {
@@ -117,17 +121,34 @@ function splitCsvLine(line: string) {
   return cells;
 }
 
-function parseCsv(text: string) {
+function parseCsv(text: string, delimiter = ",") {
   const lines = text.replace(/^\uFEFF/, "").split(/\r?\n/).filter(Boolean);
-  const headers = splitCsvLine(lines[0] ?? "");
+  const headers = splitCsvLine(lines[0] ?? "", delimiter);
   return lines.slice(1).map((line) => {
-    const cells = splitCsvLine(line);
+    const cells = splitCsvLine(line, delimiter);
     const row: Record<string, string> = {};
     headers.forEach((header, index) => {
       row[header] = cells[index] ?? "";
     });
     return row;
   });
+}
+
+function trailingAnnualRun(points: { year: number; value: number }[]) {
+  if (points.length === 0) {
+    return points;
+  }
+
+  const sorted = [...points].sort((a, b) => a.year - b.year);
+  let start = 0;
+
+  for (let i = 1; i < sorted.length; i += 1) {
+    if (sorted[i].year !== sorted[i - 1].year + 1) {
+      start = i;
+    }
+  }
+
+  return sorted.slice(start);
 }
 
 async function fetchUcdpWorldBattleDeaths() {
@@ -170,6 +191,54 @@ async function fetchUcdpWorldBattleDeaths() {
   return [...totals.entries()]
     .sort((a, b) => a[0] - b[0])
     .map(([year, value]) => ({ year, value }));
+}
+
+async function fetchWidWorldTop10Share() {
+  const response = await fetch(WID_WORLD_CSV);
+
+  if (!response.ok) {
+    throw new Error(`WID World CSV HTTP ${response.status}`);
+  }
+
+  const rows = parseCsv(await response.text(), ";");
+  const byYear = new Map<number, number>();
+
+  for (const row of rows) {
+    if (
+      row.country !== "WO" ||
+      row.variable !== "sptincj992" ||
+      row.percentile !== "p90p100" ||
+      row.age !== "992" ||
+      row.pop !== "j"
+    ) {
+      continue;
+    }
+
+    const year = Number(row.year);
+    const fraction = Number(row.value);
+
+    if (!Number.isInteger(year) || Number.isNaN(fraction)) {
+      continue;
+    }
+
+    byYear.set(year, Math.round(fraction * 10000) / 100);
+  }
+
+  return trailingAnnualRun(
+    [...byYear.entries()].map(([year, value]) => ({ year, value })),
+  );
+}
+
+async function fetchCandidateSeries(candidate: MetricCandidate) {
+  if (candidate.slug === "battle-deaths") {
+    return fetchUcdpWorldBattleDeaths();
+  }
+
+  if (candidate.slug === "top-10-income-share") {
+    return fetchWidWorldTop10Share();
+  }
+
+  return fetchWdiWorldSeries(candidate.worldBankCode);
 }
 
 async function persistToDatabase(snapshot: WorldSeriesSnapshot) {
@@ -286,16 +355,13 @@ async function main() {
     process.stdout.write(`${candidate.worldBankCode} ${candidate.slug} ... `);
 
     try {
-      const points =
-        candidate.slug === "battle-deaths"
-          ? await fetchUcdpWorldBattleDeaths()
-          : await fetchWdiWorldSeries(candidate.worldBankCode);
+      const points = await fetchCandidateSeries(candidate);
 
       if (points.length === 0) {
         dropped.push({
           slug: candidate.slug,
           worldBankCode: candidate.worldBankCode,
-          reason: "No non-null World (WLD) values returned by WDI.",
+          reason: "No non-null World values returned by the producer.",
         });
         console.log("DROPPED (0 World points)");
         continue;

@@ -35,7 +35,10 @@ export const CHAPTERS: Record<
 > = {
   survival: { title: "Survival", eyebrow: "Health and longevity" },
   knowledge: { title: "Knowledge", eyebrow: "Literacy" },
-  living: { title: "Living standards", eyebrow: "Poverty, energy, water, food" },
+  living: {
+    title: "Living standards",
+    eyebrow: "Poverty, inequality, energy, water, food",
+  },
   conflict: { title: "Conflict", eyebrow: "Battle deaths" },
   planet: { title: "Planet", eyebrow: "Climate, energy, land" },
 };
@@ -171,6 +174,28 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
       organization: "World Bank",
       homepageUrl: "https://pip.worldbank.org/",
       dataUrl: "https://data.worldbank.org/indicator/SI.POV.DDAY",
+      license: "CC BY 4.0",
+    },
+  },
+  {
+    slug: "top-10-income-share",
+    name: "Top 10% income share",
+    shortLabel: "Top 10% income",
+    unit: "% of pre-tax national income",
+    description:
+      "The share of global pre-tax national income received by the richest 10% of adults, splitting household income equally between spouses.",
+    methodologyNote:
+      "World Inequality Database series sptincj992, percentile p90p100, from the published World (WO) file. This is WID's global interpersonal distribution of pre-tax national income among equal-split adults aged 20 and over — not a World Bank country Gini, and not WDI SI.DST.10TH.10, which has no World row. WID publishes shares as a 0–1 fraction; they are shown as percent. Sparse reconstructed World estimates before the annual series are omitted. Only years with a published World value are shown.",
+    category: "living",
+    higherIsBetter: false,
+    worldBankCode: "sptincj992",
+    decimals: 1,
+    sortOrder: 65,
+    source: {
+      name: "World Inequality Database",
+      organization: "World Inequality Lab",
+      homepageUrl: "https://wid.world/",
+      dataUrl: "https://wid.world/bulk_download/WID_data_WO.csv",
       license: "CC BY 4.0",
     },
   },

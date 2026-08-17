@@ -71,6 +71,7 @@ type Dictionary = {
     colPoints: string;
     colLicense: string;
     colLinks: string;
+    dataLink: string;
     producerLink: string;
     droppedTitle: string;
     droppedLead: string;
@@ -90,7 +91,7 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
     heroEyebrow: "World · official series only",
     heroTitle: "State of Humanity",
     heroLead:
-      "Published World aggregates from UN agencies, the World Bank, WHO, UNESCO, FAO, and the European Commission JRC.",
+      "Published World aggregates from UN agencies, the World Bank, WHO, UNESCO, FAO, the European Commission JRC, and the World Inequality Lab.",
     scrubberLabel: "Official World estimates",
     scrubberHint:
       "A tile shows a number only if the producer published a World value for that year.",
@@ -105,7 +106,8 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
     vs: "vs",
     openSeries: "Open series →",
     lastIngested: (date) => `Last ingested ${date}.`,
-    accessChannel: "Access channel: World Bank WDI, country code WLD.",
+    accessChannel:
+      "Access channel: World Bank WDI (WLD), or the producer file when WDI has no World row.",
     droppedCandidates: (count) =>
       `${count} candidate${count === 1 ? "" : "s"} dropped for lack of a World series.`,
     allShipped: (count) =>
@@ -116,7 +118,7 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
       knowledge: { title: "Knowledge", eyebrow: "Literacy" },
       living: {
         title: "Living standards",
-        eyebrow: "Poverty, energy, water, food",
+        eyebrow: "Poverty, inequality, energy, water, food",
       },
       conflict: { title: "Conflict", eyebrow: "Battle deaths" },
       planet: { title: "Planet", eyebrow: "Climate, energy, land" },
@@ -139,10 +141,10 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
       source: "Source",
       producer: "Producer",
       series: "Series",
-      wdiCode: "WDI code",
+      wdiCode: "Series code",
       license: "License",
       fetched: "Fetched",
-      wdiLink: "World Bank indicator",
+      wdiLink: "Data file",
       producerLink: "Producer homepage",
     },
     sourcesPage: {
@@ -150,17 +152,18 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
       title: "Sources",
       lead: "Every number on this site is a published World aggregate. The app never averages country rows, never interpolates missing years, and never keeps a series with zero World points.",
       access: (date) =>
-        `Access channel: World Bank World Development Indicators API, country code WLD, license CC BY 4.0. Last ingest ${date}.`,
+        `Access channel: World Bank WDI API (country WLD) for most series, plus producer files when WDI has no World row. License CC BY 4.0. Last ingest ${date}.`,
       colMetric: "Metric",
       colProducer: "Producer",
-      colCode: "WDI code",
+      colCode: "Code",
       colPoints: "Points",
       colLicense: "License",
       colLinks: "Links",
+      dataLink: "Data",
       producerLink: "Producer",
       droppedTitle: "Dropped candidates",
       droppedLead:
-        "These codes were requested and not shipped because WDI returned no non-null World values.",
+        "These codes were requested and not shipped because the producer returned no non-null World values.",
     },
     notFound: {
       title: "Not found",
@@ -175,7 +178,7 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
     heroEyebrow: "Monde · séries officielles uniquement",
     heroTitle: "État de l'humanité",
     heroLead:
-      "Agrégats mondiaux publiés par les agences de l'ONU, la Banque mondiale, l'OMS, l'UNESCO, la FAO et le JRC de la Commission européenne.",
+      "Agrégats mondiaux publiés par les agences de l'ONU, la Banque mondiale, l'OMS, l'UNESCO, la FAO, le JRC de la Commission européenne et le World Inequality Lab.",
     scrubberLabel: "Estimations mondiales officielles",
     scrubberHint:
       "Une tuile n'affiche un chiffre que si le producteur a publié une valeur mondiale pour cette année.",
@@ -191,7 +194,7 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
     openSeries: "Voir la série →",
     lastIngested: (date) => `Dernier ingest ${date}.`,
     accessChannel:
-      "Canal d'accès : WDI Banque mondiale, code pays WLD.",
+      "Canal d'accès : WDI Banque mondiale (WLD), ou le fichier du producteur si WDI n'a pas de ligne World.",
     droppedCandidates: (count) =>
       `${count} candidat${count === 1 ? "" : "s"} écarté${count === 1 ? "" : "s"} faute de série mondiale.`,
     allShipped: (count) =>
@@ -202,7 +205,7 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
       knowledge: { title: "Savoir", eyebrow: "Alphabétisation" },
       living: {
         title: "Niveau de vie",
-        eyebrow: "Pauvreté, énergie, eau, alimentation",
+        eyebrow: "Pauvreté, inégalités, énergie, eau, alimentation",
       },
       conflict: { title: "Conflit", eyebrow: "Décès au combat" },
       planet: { title: "Planète", eyebrow: "Climat, énergie, terres" },
@@ -225,10 +228,10 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
       source: "Source",
       producer: "Producteur",
       series: "Série",
-      wdiCode: "Code WDI",
+      wdiCode: "Code de série",
       license: "Licence",
       fetched: "Récupéré le",
-      wdiLink: "Indicateur Banque mondiale",
+      wdiLink: "Fichier de données",
       producerLink: "Site du producteur",
     },
     sourcesPage: {
@@ -236,17 +239,18 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
       title: "Sources",
       lead: "Chaque chiffre de ce site est un agrégat mondial publié. L'app ne calcule jamais de moyenne à partir des pays, n'interpole jamais les années manquantes, et ne conserve jamais une série sans point mondial.",
       access: (date) =>
-        `Canal d'accès : API World Development Indicators de la Banque mondiale, code pays WLD, licence CC BY 4.0. Dernier ingest ${date}.`,
+        `Canal d'accès : API WDI de la Banque mondiale (pays WLD) pour la plupart des séries, plus les fichiers des producteurs quand WDI n'a pas de ligne World. Licence CC BY 4.0. Dernier ingest ${date}.`,
       colMetric: "Métrique",
       colProducer: "Producteur",
-      colCode: "Code WDI",
+      colCode: "Code",
       colPoints: "Points",
       colLicense: "Licence",
       colLinks: "Liens",
+      dataLink: "Données",
       producerLink: "Producteur",
       droppedTitle: "Candidats écartés",
       droppedLead:
-        "Ces codes ont été demandés et n'ont pas été publiés, car WDI n'a renvoyé aucune valeur mondiale non nulle.",
+        "Ces codes ont été demandés et n'ont pas été publiés, car le producteur n'a renvoyé aucune valeur mondiale non nulle.",
     },
     notFound: {
       title: "Introuvable",
@@ -310,6 +314,15 @@ export const METRIC_FR: Record<string, MetricCopy> = {
       "Pourcentage de la population vivant avec moins de 3,00 $ par jour en parité de pouvoir d'achat 2021, le seuil international actuel de pauvreté extrême de la Banque mondiale.",
     methodologyNote:
       "Série officielle de la Poverty and Inequality Platform de la Banque mondiale (ODD 1.1.1), via les WDI. Le seuil actuel est 3,00 $/jour en PPA 2021, et non l'ancien seuil de 2,15 $/jour (PPA 2017). Seules les années avec une valeur mondiale publiée sont affichées.",
+  },
+  "top-10-income-share": {
+    name: "Part du revenu des 10 % les plus riches",
+    shortLabel: "Top 10 % du revenu",
+    unit: "% du revenu national avant impôts",
+    description:
+      "Part du revenu national mondial avant impôts captée par les 10 % d'adultes les plus riches, en partageant le revenu du ménage à parts égales entre conjoints.",
+    methodologyNote:
+      "Série World Inequality Database sptincj992, percentile p90p100, extraite du fichier World (WO) publié. C'est la distribution interpersonnelle mondiale du revenu national avant impôts parmi les adultes de 20 ans et plus à parts égales — pas un Gini national de la Banque mondiale, et pas SI.DST.10TH.10 des WDI, dont la ligne World est vide. WID publie les parts en fraction 0–1 ; elles sont affichées en pourcent. Les estimations mondiales reconstruites, éparses, antérieures à la série annuelle ne sont pas montrées. Seules les années avec une valeur mondiale publiée sont affichées.",
   },
   "electricity-access": {
     name: "Accès à l'électricité",

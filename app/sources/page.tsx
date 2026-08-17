@@ -6,7 +6,7 @@ import { loadWorldSeries } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Sources",
   description:
-    "Official producers, WDI codes, licenses, and last ingest date for every shipped World series.",
+    "Official producers, series codes, licenses, and last ingest date for every shipped World series.",
 };
 
 export const dynamic = "force-static";

@@ -4,7 +4,7 @@
     "name": "World",
     "type": "world"
   },
-  "fetchedAt": "2026-08-17T13:36:13.195Z",
+  "fetchedAt": "2026-08-17T13:49:16.903Z",
   "metrics": [
     {
       "slug": "life-expectancy",
@@ -24,7 +24,7 @@
         "homepageUrl": "https://population.un.org/wpp/",
         "dataUrl": "https://data.worldbank.org/indicator/SP.DYN.LE00.IN",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:36:13.195Z"
+        "fetchedAt": "2026-08-17T13:49:16.903Z"
       },
       "observations": [
         {
@@ -307,7 +307,7 @@
         "homepageUrl": "https://childmortality.org",
         "dataUrl": "https://data.worldbank.org/indicator/SP.DYN.IMRT.IN",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:36:13.195Z"
+        "fetchedAt": "2026-08-17T13:49:16.903Z"
       },
       "observations": [
         {
@@ -470,7 +470,7 @@
         "homepageUrl": "https://www.who.int/data/gho/data/themes/maternal-and-reproductive-health/maternal-mortality-ratio",
         "dataUrl": "https://data.worldbank.org/indicator/SH.STA.MMRT",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:36:13.195Z"
+        "fetchedAt": "2026-08-17T13:49:16.903Z"
       },
       "observations": [
         {
@@ -649,7 +649,7 @@
         "homepageUrl": "https://immunizationdata.who.int/",
         "dataUrl": "https://data.worldbank.org/indicator/SH.IMM.MEAS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:36:13.195Z"
+        "fetchedAt": "2026-08-17T13:49:16.903Z"
       },
       "observations": [
         {
@@ -852,7 +852,7 @@
         "homepageUrl": "https://databrowser.uis.unesco.org/",
         "dataUrl": "https://data.worldbank.org/indicator/SE.ADT.LITR.ZS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:36:13.195Z"
+        "fetchedAt": "2026-08-17T13:49:16.903Z"
       },
       "observations": [
         {
@@ -1075,7 +1075,7 @@
         "homepageUrl": "https://pip.worldbank.org/",
         "dataUrl": "https://data.worldbank.org/indicator/SI.POV.DDAY",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:36:13.195Z"
+        "fetchedAt": "2026-08-17T13:49:16.903Z"
       },
       "observations": [
         {
@@ -1253,6 +1253,205 @@
       ]
     },
     {
+      "slug": "top-10-income-share",
+      "name": "Top 10% income share",
+      "shortLabel": "Top 10% income",
+      "unit": "% of pre-tax national income",
+      "description": "The share of global pre-tax national income received by the richest 10% of adults, splitting household income equally between spouses.",
+      "methodologyNote": "World Inequality Database series sptincj992, percentile p90p100, from the published World (WO) file. This is WID's global interpersonal distribution of pre-tax national income among equal-split adults aged 20 and over — not a World Bank country Gini, and not WDI SI.DST.10TH.10, which has no World row. WID publishes shares as a 0–1 fraction; they are shown as percent. Sparse reconstructed World estimates before the annual series are omitted. Only years with a published World value are shown.",
+      "category": "living",
+      "higherIsBetter": false,
+      "worldBankCode": "sptincj992",
+      "decimals": 1,
+      "sortOrder": 65,
+      "source": {
+        "name": "World Inequality Database",
+        "organization": "World Inequality Lab",
+        "homepageUrl": "https://wid.world/",
+        "dataUrl": "https://wid.world/bulk_download/WID_data_WO.csv",
+        "license": "CC BY 4.0",
+        "fetchedAt": "2026-08-17T13:49:16.903Z"
+      },
+      "observations": [
+        {
+          "year": 1980,
+          "value": 51.85
+        },
+        {
+          "year": 1981,
+          "value": 51.54
+        },
+        {
+          "year": 1982,
+          "value": 51.22
+        },
+        {
+          "year": 1983,
+          "value": 51.47
+        },
+        {
+          "year": 1984,
+          "value": 51.83
+        },
+        {
+          "year": 1985,
+          "value": 51.99
+        },
+        {
+          "year": 1986,
+          "value": 52.38
+        },
+        {
+          "year": 1987,
+          "value": 52.63
+        },
+        {
+          "year": 1988,
+          "value": 53.15
+        },
+        {
+          "year": 1989,
+          "value": 53.52
+        },
+        {
+          "year": 1990,
+          "value": 53.95
+        },
+        {
+          "year": 1991,
+          "value": 54.38
+        },
+        {
+          "year": 1992,
+          "value": 55.1
+        },
+        {
+          "year": 1993,
+          "value": 55.24
+        },
+        {
+          "year": 1994,
+          "value": 55.75
+        },
+        {
+          "year": 1995,
+          "value": 55.97
+        },
+        {
+          "year": 1996,
+          "value": 56.56
+        },
+        {
+          "year": 1997,
+          "value": 56.53
+        },
+        {
+          "year": 1998,
+          "value": 57.11
+        },
+        {
+          "year": 1999,
+          "value": 57.44
+        },
+        {
+          "year": 2000,
+          "value": 57.71
+        },
+        {
+          "year": 2001,
+          "value": 57.62
+        },
+        {
+          "year": 2002,
+          "value": 57.29
+        },
+        {
+          "year": 2003,
+          "value": 57.29
+        },
+        {
+          "year": 2004,
+          "value": 57.18
+        },
+        {
+          "year": 2005,
+          "value": 57.17
+        },
+        {
+          "year": 2006,
+          "value": 56.96
+        },
+        {
+          "year": 2007,
+          "value": 56.68
+        },
+        {
+          "year": 2008,
+          "value": 56.22
+        },
+        {
+          "year": 2009,
+          "value": 55.33
+        },
+        {
+          "year": 2010,
+          "value": 54.96
+        },
+        {
+          "year": 2011,
+          "value": 54.98
+        },
+        {
+          "year": 2012,
+          "value": 54.47
+        },
+        {
+          "year": 2013,
+          "value": 54.21
+        },
+        {
+          "year": 2014,
+          "value": 53.77
+        },
+        {
+          "year": 2015,
+          "value": 53.69
+        },
+        {
+          "year": 2016,
+          "value": 53.58
+        },
+        {
+          "year": 2017,
+          "value": 53.49
+        },
+        {
+          "year": 2018,
+          "value": 53.37
+        },
+        {
+          "year": 2019,
+          "value": 52.96
+        },
+        {
+          "year": 2020,
+          "value": 53.24
+        },
+        {
+          "year": 2021,
+          "value": 53.35
+        },
+        {
+          "year": 2022,
+          "value": 53.34
+        },
+        {
+          "year": 2023,
+          "value": 53.11
+        }
+      ]
+    },
+    {
       "slug": "electricity-access",
       "name": "Access to electricity",
       "shortLabel": "Electricity access",
@@ -1270,7 +1469,7 @@
         "homepageUrl": "https://trackingsdg7.esmap.org/",
         "dataUrl": "https://data.worldbank.org/indicator/EG.ELC.ACCS.ZS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:36:13.195Z"
+        "fetchedAt": "2026-08-17T13:49:16.903Z"
       },
       "observations": [
         {
@@ -1401,7 +1600,7 @@
         "homepageUrl": "https://washdata.org/",
         "dataUrl": "https://data.worldbank.org/indicator/SH.H2O.BASW.ZS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:36:13.195Z"
+        "fetchedAt": "2026-08-17T13:49:16.903Z"
       },
       "observations": [
         {
@@ -1524,7 +1723,7 @@
         "homepageUrl": "https://www.fao.org/faostat/",
         "dataUrl": "https://data.worldbank.org/indicator/SN.ITK.DEFC.ZS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:36:13.195Z"
+        "fetchedAt": "2026-08-17T13:49:16.903Z"
       },
       "observations": [
         {
@@ -1639,7 +1838,7 @@
         "homepageUrl": "https://edgar.jrc.ec.europa.eu/",
         "dataUrl": "https://data.worldbank.org/indicator/EN.GHG.CO2.MT.CE.AR5",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:36:13.195Z"
+        "fetchedAt": "2026-08-17T13:49:16.903Z"
       },
       "observations": [
         {
@@ -1882,7 +2081,7 @@
         "homepageUrl": "https://edgar.jrc.ec.europa.eu/",
         "dataUrl": "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:36:13.195Z"
+        "fetchedAt": "2026-08-17T13:49:16.903Z"
       },
       "observations": [
         {
@@ -2125,7 +2324,7 @@
         "homepageUrl": "https://edgar.jrc.ec.europa.eu/",
         "dataUrl": "https://data.worldbank.org/indicator/EN.GHG.CH4.MT.CE.AR5",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:36:13.195Z"
+        "fetchedAt": "2026-08-17T13:49:16.903Z"
       },
       "observations": [
         {
@@ -2368,7 +2567,7 @@
         "homepageUrl": "https://www.fao.org/forest-resources-assessment/",
         "dataUrl": "https://data.worldbank.org/indicator/AG.LND.FRST.ZS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:36:13.195Z"
+        "fetchedAt": "2026-08-17T13:49:16.903Z"
       },
       "observations": [
         {
@@ -2519,7 +2718,7 @@
         "homepageUrl": "https://trackingsdg7.esmap.org/",
         "dataUrl": "https://data.worldbank.org/indicator/EG.FEC.RNEW.ZS",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:36:13.195Z"
+        "fetchedAt": "2026-08-17T13:49:16.903Z"
       },
       "observations": [
         {
@@ -2666,7 +2865,7 @@
         "homepageUrl": "https://ucdp.uu.se/",
         "dataUrl": "https://ucdp.uu.se/downloads/brd/ucdp-brd-conf-261-csv.zip",
         "license": "CC BY 4.0",
-        "fetchedAt": "2026-08-17T13:36:13.195Z"
+        "fetchedAt": "2026-08-17T13:49:16.903Z"
       },
       "observations": [
         {

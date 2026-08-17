@@ -6,7 +6,7 @@ Official world series on survival, literacy, living standards, conflict, and the
 
 - Next.js (App Router), TypeScript, Tailwind, shadcn/ui, Recharts, Framer Motion
 - Drizzle ORM + Neon Postgres (optional)
-- World Bank WDI API as the access channel; the UI credits the original producer
+- World Bank WDI API as the main access channel, plus producer files when WDI has no World row; the UI credits the original producer
 
 ## Local setup
 
@@ -16,7 +16,7 @@ npm run ingest
 npm run dev
 ```
 
-`npm run ingest` fetches `country=WLD` only for the candidate WDI codes. A candidate with zero non-null World points is dropped. The snapshot is written to `data/world-series.json`. The UI reads that file when `DATABASE_URL` is unset.
+`npm run ingest` fetches official World series: WDI `country=WLD` for most candidates, the UCDP battle-deaths file, and the WID World (WO) file for the top 10% income share. A candidate with zero non-null World points is dropped. The snapshot is written to `data/world-series.json`. The UI reads that file when `DATABASE_URL` is unset.
 
 Copy [`.env.example`](.env.example) to `.env.local` if you want Postgres.
 
@@ -56,6 +56,6 @@ Hobby is for personal, non-commercial use.
 | Command | What it does |
 | --- | --- |
 | `npm run dev` | Local Next.js server |
-| `npm run ingest` | Fetch official WLD series and write the snapshot |
+| `npm run ingest` | Fetch official World series and write the snapshot |
 | `npm run db:push` | Push the Drizzle schema to Neon |
 | `npm run build` | Production build |
