@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 import { useLocale } from "@/components/locale-provider";
-import { translatedMetric } from "@/lib/i18n";
+import { aggregationShort, translatedMetric } from "@/lib/i18n";
 import type { WorldSeriesSnapshot } from "@/lib/types";
 
 export function SourcesList({ snapshot }: { snapshot: WorldSeriesSnapshot }) {
@@ -30,6 +30,9 @@ export function SourcesList({ snapshot }: { snapshot: WorldSeriesSnapshot }) {
             <tr>
               <th className="px-4 py-3 font-medium">{t.sourcesPage.colMetric}</th>
               <th className="px-4 py-3 font-medium">
+                {t.sourcesPage.colAggregate}
+              </th>
+              <th className="px-4 py-3 font-medium">
                 {t.sourcesPage.colProducer}
               </th>
               <th className="px-4 py-3 font-medium">{t.sourcesPage.colCode}</th>
@@ -54,6 +57,9 @@ export function SourcesList({ snapshot }: { snapshot: WorldSeriesSnapshot }) {
                     >
                       {copy.name}
                     </Link>
+                  </td>
+                  <td className="px-4 py-4 text-muted-foreground">
+                    {aggregationShort(metric.aggregation, locale)}
                   </td>
                   <td className="px-4 py-4 text-muted-foreground">
                     {metric.source.organization}

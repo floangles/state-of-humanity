@@ -8,6 +8,29 @@ export const CATEGORIES = [
 
 export type Category = (typeof CATEGORIES)[number];
 
+export const AGGREGATION_KINDS = [
+  "weighted-mean",
+  "total",
+  "share",
+  "median",
+] as const;
+
+export type AggregationKind = (typeof AGGREGATION_KINDS)[number];
+
+export const AGGREGATION_WEIGHTS = [
+  "population",
+  "births",
+  "land-area",
+  "energy",
+] as const;
+
+export type AggregationWeight = (typeof AGGREGATION_WEIGHTS)[number];
+
+export type Aggregation = {
+  kind: AggregationKind;
+  weight?: AggregationWeight;
+};
+
 export type MetricCandidate = {
   slug: string;
   name: string;
@@ -16,6 +39,7 @@ export type MetricCandidate = {
   description: string;
   methodologyNote: string;
   category: Category;
+  aggregation: Aggregation;
   higherIsBetter: boolean | null;
   worldBankCode: string;
   decimals: number;
@@ -54,6 +78,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     methodologyNote:
       "World aggregate published by the World Bank World Development Indicators (SP.POP.TOTL), sourced from the United Nations Population Division World Population Prospects and national statistical offices. Midyear estimates. This is the published World total, not a sum computed from country rows. Only years with a published World value are shown.",
     category: "survival",
+    aggregation: { kind: "total" },
     higherIsBetter: null,
     worldBankCode: "SP.POP.TOTL",
     decimals: 0,
@@ -76,6 +101,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     methodologyNote:
       "World aggregate published by the World Bank World Development Indicators, sourced from the United Nations Population Division World Population Prospects and national statistical offices. Only years with a published World value are shown.",
     category: "survival",
+    aggregation: { kind: "weighted-mean", weight: "population" },
     higherIsBetter: true,
     worldBankCode: "SP.DYN.LE00.IN",
     decimals: 1,
@@ -98,6 +124,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     methodologyNote:
       "Official UN Inter-agency Group for Child Mortality Estimation (UN IGME) series, accessed via World Bank WDI. UN IGME is UNICEF, WHO, the World Bank, and UN DESA. Only years with a published World value are shown.",
     category: "survival",
+    aggregation: { kind: "weighted-mean", weight: "births" },
     higherIsBetter: false,
     worldBankCode: "SP.DYN.IMRT.IN",
     decimals: 1,
@@ -120,6 +147,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     methodologyNote:
       "Official UN Maternal Mortality Estimation Inter-Agency Group (MMEIG) series — WHO, UNICEF, UNFPA, World Bank, and UN DESA — accessed via World Bank WDI. Estimates are modeled. Only years with a published World value are shown.",
     category: "survival",
+    aggregation: { kind: "weighted-mean", weight: "births" },
     higherIsBetter: false,
     worldBankCode: "SH.STA.MMRT",
     decimals: 0,
@@ -143,6 +171,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     methodologyNote:
       "Official WHO / UNICEF Estimates of National Immunization Coverage, accessed via World Bank WDI. Only years with a published World value are shown.",
     category: "survival",
+    aggregation: { kind: "weighted-mean", weight: "population" },
     higherIsBetter: true,
     worldBankCode: "SH.IMM.MEAS",
     decimals: 0,
@@ -165,6 +194,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     methodologyNote:
       "Official UNESCO Institute for Statistics (UIS) series, the custodian of SDG 4.6.2, accessed via World Bank WDI. Many high-income countries no longer report traditional literacy statistics. UIS may fill some gaps with its documented Global Age-specific Literacy Projections Model (GALP). This app never computes a world average. Only years with a published World value are shown.",
     category: "knowledge",
+    aggregation: { kind: "weighted-mean", weight: "population" },
     higherIsBetter: true,
     worldBankCode: "SE.ADT.LITR.ZS",
     decimals: 1,
@@ -187,6 +217,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     methodologyNote:
       "Official World Bank Poverty and Inequality Platform series (SDG 1.1.1), accessed via World Bank WDI. The current line is $3.00/day in 2021 PPP, not the retired $2.15/day (2017 PPP) line. Only years with a published World value are shown.",
     category: "living",
+    aggregation: { kind: "weighted-mean", weight: "population" },
     higherIsBetter: false,
     worldBankCode: "SI.POV.DDAY",
     decimals: 1,
@@ -209,6 +240,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     methodologyNote:
       "World Inequality Database series sptincj992, percentile p90p100, from the published World (WO) file. This is WID's global interpersonal distribution of pre-tax national income among equal-split adults aged 20 and over — not a World Bank country Gini, and not WDI SI.DST.10TH.10, which has no World row. WID publishes shares as a 0–1 fraction; they are shown as percent. Sparse reconstructed World estimates before the annual series are omitted. Only years with a published World value are shown.",
     category: "living",
+    aggregation: { kind: "share" },
     higherIsBetter: false,
     worldBankCode: "sptincj992",
     decimals: 1,
@@ -231,6 +263,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     methodologyNote:
       "Official SDG 7.1.1 electrification series from Tracking SDG7 / ESMAP (World Bank, IEA, IRENA, UNSD, WHO), accessed via World Bank WDI. Only years with a published World value are shown.",
     category: "living",
+    aggregation: { kind: "weighted-mean", weight: "population" },
     higherIsBetter: true,
     worldBankCode: "EG.ELC.ACCS.ZS",
     decimals: 1,
@@ -253,6 +286,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     methodologyNote:
       "Official WHO / UNICEF Joint Monitoring Programme (JMP) series for SDG 6.1, accessed via World Bank WDI. Only years with a published World value are shown.",
     category: "living",
+    aggregation: { kind: "weighted-mean", weight: "population" },
     higherIsBetter: true,
     worldBankCode: "SH.H2O.BASW.ZS",
     decimals: 1,
@@ -275,6 +309,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     methodologyNote:
       "Official FAO series for SDG 2.1.1, accessed via World Bank WDI. Only years with a published World value are shown.",
     category: "living",
+    aggregation: { kind: "weighted-mean", weight: "population" },
     higherIsBetter: false,
     worldBankCode: "SN.ITK.DEFC.ZS",
     decimals: 1,
@@ -297,6 +332,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     methodologyNote:
       "Current World Bank WDI greenhouse-gas series (EN.GHG.CO2.MT.CE.AR5), sourced from the European Commission JRC EDGAR Community GHG Database and the IEA. This is the published World total, not a sum computed from country rows. Only years with a published World value are shown.",
     category: "planet",
+    aggregation: { kind: "total" },
     higherIsBetter: false,
     worldBankCode: "EN.GHG.CO2.MT.CE.AR5",
     decimals: 0,
@@ -319,6 +355,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     methodologyNote:
       "Current World Bank WDI greenhouse-gas series (EN.GHG.CO2.PC.CE.AR5), sourced from the European Commission JRC EDGAR Community GHG Database and the IEA. The retired WDI code EN.ATM.CO2E.PC is not used. Only years with a published World value are shown.",
     category: "planet",
+    aggregation: { kind: "weighted-mean", weight: "population" },
     higherIsBetter: false,
     worldBankCode: "EN.GHG.CO2.PC.CE.AR5",
     decimals: 2,
@@ -341,6 +378,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     methodologyNote:
       "Current World Bank WDI greenhouse-gas series (EN.GHG.CH4.MT.CE.AR5), sourced from the European Commission JRC EDGAR Community GHG Database and the IEA. Values use IPCC AR5 100-year global warming potentials. This is the published World total, not a sum computed from country rows. Only years with a published World value are shown.",
     category: "planet",
+    aggregation: { kind: "total" },
     higherIsBetter: false,
     worldBankCode: "EN.GHG.CH4.MT.CE.AR5",
     decimals: 0,
@@ -363,6 +401,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     methodologyNote:
       "Official FAO series for SDG 15.1.1 from the Global Forest Resources Assessment, accessed via World Bank WDI (AG.LND.FRST.ZS). This is the published World share, not an average computed from country rows. Only years with a published World value are shown.",
     category: "planet",
+    aggregation: { kind: "weighted-mean", weight: "land-area" },
     higherIsBetter: true,
     worldBankCode: "AG.LND.FRST.ZS",
     decimals: 1,
@@ -385,6 +424,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     methodologyNote:
       "Official SDG 7.2.1 series from Tracking SDG7 (IEA, IRENA, UNSD, World Bank, WHO), accessed via World Bank WDI (EG.FEC.RNEW.ZS). Includes traditional biomass as well as modern renewables, so the World share can fall while wind and solar grow. Only years with a published World value are shown.",
     category: "planet",
+    aggregation: { kind: "weighted-mean", weight: "energy" },
     higherIsBetter: true,
     worldBankCode: "EG.FEC.RNEW.ZS",
     decimals: 1,
@@ -407,6 +447,7 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
     methodologyNote:
       "Uppsala Conflict Data Program (UCDP) Battle-Related Deaths Dataset, conflict-year file (bd_best). World Bank WDI redistributes this series as VC.BTL.DETH but leaves the World row empty, so the World total is taken from UCDP: the sum of each conflict-year best estimate (one row per conflict and year, no country averaging). Direct battle deaths only — not famine, disease, or other indirect war deaths. Not a share of all deaths.",
     category: "conflict",
+    aggregation: { kind: "total" },
     higherIsBetter: false,
     worldBankCode: "VC.BTL.DETH",
     decimals: 0,
@@ -423,4 +464,8 @@ export const METRIC_CANDIDATES: MetricCandidate[] = [
 
 export function getCandidate(slug: string) {
   return METRIC_CANDIDATES.find((metric) => metric.slug === slug);
+}
+
+export function aggregationForSlug(slug: string) {
+  return getCandidate(slug)?.aggregation;
 }

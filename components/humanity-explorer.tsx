@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
+import { AggregationLabel } from "@/components/aggregation-label";
 import { useLocale } from "@/components/locale-provider";
 import { MetricTile } from "@/components/metric-tile";
 import { YearScrubber } from "@/components/year-scrubber";
@@ -54,6 +55,9 @@ export function HumanityExplorer({ snapshot }: HumanityExplorerProps) {
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
           {t.heroLead}
+        </p>
+        <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
+          {t.heroAggregationHint}
         </p>
       </section>
 
@@ -131,6 +135,10 @@ function ThenNowRow({
       <div>
         <p className="font-medium">{copy.shortLabel}</p>
         <p className="text-xs text-muted-foreground">{copy.unit}</p>
+        <AggregationLabel
+          aggregation={metric.aggregation}
+          className="text-[11px] text-muted-foreground"
+        />
       </div>
       <p className="text-sm text-muted-foreground">
         {first
