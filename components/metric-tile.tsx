@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
+import { AggregationLabel } from "@/components/aggregation-label";
 import { useLocale } from "@/components/locale-provider";
 import { MetricChart } from "@/components/metric-chart";
 import { CATEGORY_COLORS } from "@/lib/chart";
@@ -58,6 +59,10 @@ export function MetricTile({ metric, year }: MetricTileProps) {
               ? `${t.lastReading(display.year)} · ${copy.unit}`
               : copy.unit}
           </p>
+          <AggregationLabel
+            aggregation={metric.aggregation}
+            className="mt-1 text-[11px] text-muted-foreground"
+          />
         </div>
         {trend ? (
           <span

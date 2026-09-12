@@ -1,4 +1,4 @@
-import type { Category } from "@/lib/metrics-catalog";
+import type { Aggregation, Category } from "@/lib/metrics-catalog";
 
 export type Observation = {
   year: number;
@@ -13,6 +13,7 @@ export type ShippedMetric = {
   description: string;
   methodologyNote: string;
   category: Category;
+  aggregation: Aggregation;
   higherIsBetter: boolean | null;
   worldBankCode: string;
   decimals: number;

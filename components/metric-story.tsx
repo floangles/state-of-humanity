@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 
+import { AggregationLabel } from "@/components/aggregation-label";
 import { useLocale } from "@/components/locale-provider";
 import { MetricChart } from "@/components/metric-chart";
 import {
@@ -9,7 +10,7 @@ import {
   formatMetricValue,
   lastObservation,
 } from "@/lib/format";
-import { translatedMetric } from "@/lib/i18n";
+import { aggregationShort, translatedMetric } from "@/lib/i18n";
 import type { ShippedMetric } from "@/lib/types";
 
 export function MetricStory({ metric }: { metric: ShippedMetric }) {
@@ -35,6 +36,10 @@ export function MetricStory({ metric }: { metric: ShippedMetric }) {
       <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
         {copy.description}
       </p>
+      <AggregationLabel
+        aggregation={metric.aggregation}
+        className="mt-3 max-w-2xl text-sm text-foreground"
+      />
 
       {first && last ? (
         <div className="mt-10 grid gap-4 sm:grid-cols-3">
@@ -68,13 +73,22 @@ export function MetricStory({ metric }: { metric: ShippedMetric }) {
       <section className="mt-10 grid gap-6 lg:grid-cols-2">
         <article className="rounded-2xl border border-border bg-card/70 p-6">
           <h2 className="font-heading text-2xl">{t.metricPage.howBuilt}</h2>
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">
+          <AggregationLabel
+            aggregation={metric.aggregation}
+            variant="long"
+            className="mt-4 text-sm text-foreground"
+          />
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">
             {copy.methodologyNote}
           </p>
         </article>
         <article className="rounded-2xl border border-border bg-card/70 p-6">
           <h2 className="font-heading text-2xl">{t.metricPage.source}</h2>
           <dl className="mt-4 space-y-3 text-sm">
+            <Row
+              label={t.metricPage.aggregate}
+              value={aggregationShort(metric.aggregation, locale)}
+            />
             <Row label={t.metricPage.producer} value={metric.source.organization} />
             <Row label={t.metricPage.series} value={metric.source.name} />
             <Row label={t.metricPage.wdiCode} value={metric.worldBankCode} />

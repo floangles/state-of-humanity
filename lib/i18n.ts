@@ -1,4 +1,9 @@
-import type { Category } from "@/lib/metrics-catalog";
+import type {
+  Aggregation,
+  AggregationKind,
+  AggregationWeight,
+  Category,
+} from "@/lib/metrics-catalog";
 
 export const LOCALES = ["en", "fr"] as const;
 
@@ -26,6 +31,7 @@ type Dictionary = {
   heroEyebrow: string;
   heroTitle: string;
   heroLead: string;
+  heroAggregationHint: string;
   scrubberLabel: string;
   scrubberHint: string;
   thenVs: (year: number) => string;
@@ -60,6 +66,7 @@ type Dictionary = {
     fetched: string;
     wdiLink: string;
     producerLink: string;
+    aggregate: string;
   };
   sourcesPage: {
     eyebrow: string;
@@ -67,6 +74,7 @@ type Dictionary = {
     lead: string;
     access: (date: string) => string;
     colMetric: string;
+    colAggregate: string;
     colProducer: string;
     colCode: string;
     colPoints: string;
@@ -93,6 +101,8 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
     heroTitle: "State of Humanity",
     heroLead:
       "Published World aggregates from UN agencies, the World Bank, WHO, UNESCO, FAO, the European Commission JRC, and the World Inequality Lab.",
+    heroAggregationHint:
+      "Each figure says whether it is a weighted average, a total, or a share — never a median computed here.",
     scrubberLabel: "Official World estimates",
     scrubberHint:
       "A tile shows a number only if the producer published a World value for that year.",
@@ -148,14 +158,16 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
       fetched: "Fetched",
       wdiLink: "Data file",
       producerLink: "Producer homepage",
+      aggregate: "Aggregate",
     },
     sourcesPage: {
       eyebrow: "Provenance",
       title: "Sources",
-      lead: "Every number on this site is a published World aggregate. The app never averages country rows, never interpolates missing years, and never keeps a series with zero World points.",
+      lead: "Every number on this site is a published World aggregate. The app never averages country rows, never interpolates missing years, and never keeps a series with zero World points. Each series says whether that World figure is a weighted average, a total, or a distribution share — never a homemade median.",
       access: (date) =>
         `Access channel: World Bank WDI API (country WLD) for most series, plus producer files when WDI has no World row. License CC BY 4.0. Last ingest ${date}.`,
       colMetric: "Metric",
+      colAggregate: "Average or median",
       colProducer: "Producer",
       colCode: "Code",
       colPoints: "Points",
@@ -181,6 +193,8 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
     heroTitle: "État de l'humanité",
     heroLead:
       "Agrégats mondiaux publiés par les agences de l'ONU, la Banque mondiale, l'OMS, l'UNESCO, la FAO, le JRC de la Commission européenne et le World Inequality Lab.",
+    heroAggregationHint:
+      "Chaque chiffre indique s'il s'agit d'une moyenne pondérée, d'un total ou d'une part — jamais d'une médiane calculée ici.",
     scrubberLabel: "Estimations mondiales officielles",
     scrubberHint:
       "Une tuile n'affiche un chiffre que si le producteur a publié une valeur mondiale pour cette année.",
@@ -236,14 +250,16 @@ export const DICTIONARIES: Record<Locale, Dictionary> = {
       fetched: "Récupéré le",
       wdiLink: "Fichier de données",
       producerLink: "Site du producteur",
+      aggregate: "Agrégat",
     },
     sourcesPage: {
       eyebrow: "Provenance",
       title: "Sources",
-      lead: "Chaque chiffre de ce site est un agrégat mondial publié. L'app ne calcule jamais de moyenne à partir des pays, n'interpole jamais les années manquantes, et ne conserve jamais une série sans point mondial.",
+      lead: "Chaque chiffre de ce site est un agrégat mondial publié. L'app ne calcule jamais de moyenne à partir des pays, n'interpole jamais les années manquantes, et ne conserve jamais une série sans point mondial. Chaque série dit si ce chiffre mondial est une moyenne pondérée, un total ou une part de distribution — jamais une médiane calculée ici.",
       access: (date) =>
         `Canal d'accès : API WDI de la Banque mondiale (pays WLD) pour la plupart des séries, plus les fichiers des producteurs quand WDI n'a pas de ligne World. Licence CC BY 4.0. Dernier ingest ${date}.`,
       colMetric: "Métrique",
+      colAggregate: "Moyenne ou médiane",
       colProducer: "Producteur",
       colCode: "Code",
       colPoints: "Points",
@@ -418,6 +434,74 @@ export const METRIC_FR: Record<string, MetricCopy> = {
       "Jeu de données Uppsala Conflict Data Program (UCDP) Battle-Related Deaths, fichier conflit-année (bd_best). La Banque mondiale redistribue cette série sous le code VC.BTL.DETH mais laisse la ligne World vide ; le total mondial est donc pris chez UCDP : somme des estimations « best » de chaque conflit-année (une ligne par conflit et par année, pas de moyenne de pays). Morts directes au combat uniquement — pas la famine, les maladies ou les autres effets indirects de la guerre. Ce n'est pas une part de l'ensemble des décès.",
   },
 };
+
+const AGGREGATION_SHORT: Record<Locale, Record<AggregationKind, string>> = {
+  en: {
+    "weighted-mean": "Weighted average · not a median",
+    total: "Total · not an average or median",
+    share: "Share · not an average or median",
+    median: "Median · not an average",
+  },
+  fr: {
+    "weighted-mean": "Moyenne pondérée · pas une médiane",
+    total: "Total · ni moyenne ni médiane",
+    share: "Part · ni moyenne ni médiane",
+    median: "Médiane · pas une moyenne",
+  },
+};
+
+const AGGREGATION_WEIGHT: Record<Locale, Record<AggregationWeight, string>> = {
+  en: {
+    population: "population-weighted",
+    births: "birth-weighted",
+    "land-area": "land-weighted",
+    energy: "energy-weighted",
+  },
+  fr: {
+    population: "pondérée par la population",
+    births: "pondérée par les naissances",
+    "land-area": "pondérée par la superficie",
+    energy: "pondérée par l'énergie",
+  },
+};
+
+export function aggregationShort(aggregation: Aggregation, locale: Locale) {
+  return AGGREGATION_SHORT[locale][aggregation.kind];
+}
+
+export function aggregationLong(aggregation: Aggregation, locale: Locale) {
+  if (aggregation.kind === "weighted-mean") {
+    const weight = aggregation.weight
+      ? AGGREGATION_WEIGHT[locale][aggregation.weight]
+      : locale === "fr"
+        ? "pondérée"
+        : "weighted";
+
+    return locale === "fr"
+      ? `Moyenne ${weight}. Pas la médiane des pays.`
+      : `${capitalizeWeight(weight)} average. Not a median of countries.`;
+  }
+
+  if (aggregation.kind === "total") {
+    return locale === "fr"
+      ? "Total mondial. Ni une moyenne ni une médiane."
+      : "World total. Neither an average nor a median.";
+  }
+
+  if (aggregation.kind === "share") {
+    return locale === "fr"
+      ? "Part de la distribution mondiale des revenus. Ni une moyenne ni une médiane."
+      : "Share of the global income distribution. Neither an average nor a median.";
+  }
+
+  return locale === "fr"
+    ? "Médiane. Pas une moyenne."
+    : "Median. Not an average.";
+}
+
+function capitalizeWeight(weight: string) {
+  return weight.charAt(0).toUpperCase() + weight.slice(1);
+}
 
 export function localeNumberFormat(locale: Locale) {
   return locale === "fr" ? "fr-FR" : "en-US";

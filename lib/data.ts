@@ -5,14 +5,40 @@ import { asc, eq } from "drizzle-orm";
 
 import { getDb } from "@/lib/db";
 import { metrics, observations, sources } from "@/drizzle/schema";
-import { getCandidate, type Category } from "@/lib/metrics-catalog";
+import {
+  aggregationForSlug,
+  getCandidate,
+  type Category,
+} from "@/lib/metrics-catalog";
 import type { ShippedMetric, WorldSeriesSnapshot } from "@/lib/types";
 
 const SNAPSHOT_PATH = path.join(process.cwd(), "data", "world-series.json");
 
+function withCatalogFields(
+  metric: Omit<ShippedMetric, "aggregation"> & {
+    aggregation?: ShippedMetric["aggregation"];
+  },
+): ShippedMetric {
+  const candidate = getCandidate(metric.slug);
+
+  return {
+    ...metric,
+    higherIsBetter: candidate
+      ? candidate.higherIsBetter
+      : metric.higherIsBetter,
+    aggregation:
+      candidate?.aggregation ?? metric.aggregation ?? { kind: "total" },
+  };
+}
+
 async function loadSnapshot(): Promise<WorldSeriesSnapshot> {
   const raw = await readFile(SNAPSHOT_PATH, "utf8");
-  return JSON.parse(raw) as WorldSeriesSnapshot;
+  const snapshot = JSON.parse(raw) as WorldSeriesSnapshot;
+
+  return {
+    ...snapshot,
+    metrics: snapshot.metrics.map(withCatalogFields),
+  };
 }
 
 async function loadFromDatabase(): Promise<WorldSeriesSnapshot | null> {
@@ -62,6 +88,9 @@ async function loadFromDatabase(): Promise<WorldSeriesSnapshot | null> {
       description: row.metric.description,
       methodologyNote: row.metric.methodologyNote,
       category: row.metric.category as Category,
+      aggregation:
+        candidate?.aggregation ??
+        aggregationForSlug(row.metric.slug) ?? { kind: "total" },
       higherIsBetter: candidate ? candidate.higherIsBetter : row.metric.higherIsBetter,
       worldBankCode: row.metric.worldBankCode,
       decimals: row.metric.decimals,
